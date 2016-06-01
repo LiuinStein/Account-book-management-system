@@ -48,15 +48,7 @@ int getDescMethodNum()
 	cout << "Choose a Income/Expense description in this option:" << endl;
 	cout << "Default option: 1. 饭 2. 内部资金流通 3. 父母给 4. New description" << endl;
 	cout << "Enter a option number: ";
-	int desNumber{};
-	do
-	{
-		cin >> desNumber;
-		if (desNumber < 1 || desNumber>3)
-			cout << "Option number error!"
-			<< "Enter a option number again: ";
-	} while (desNumber < 1 || desNumber>3);
-	return desNumber;
+	return inputNumber(1, 4);
 }
 
 //将账目说明映射为账本说明并写入Line
@@ -99,15 +91,7 @@ double newMoney()
 bool moneyExpense()
 {
 	cout << "Expense or Income(1 or 2): ";
-	int inp{};
-	do
-	{
-		cin >> inp;
-		if (inp < 1 || inp>2)
-			cout << "Expense or income number input error!" << endl
-			<< "Expense or Income(1 or 2): ";
-	} while (inp < 1 || inp>2);
-	return inp == 1;
+	return inputNumber(1, 2) == 1;
 }
 
 //使用默认备注/必需模板
@@ -115,15 +99,7 @@ bool useDefNoteTem()
 {
 	cout << "Do you want to use the default note and necessary template?" << endl;
 	cout << "If you want type 1 else type 2: ";
-	int result{};
-	do
-	{
-		cin >> result;
-		if (result < 1 || result>2)
-			cout << "Type error!" << endl
-			<< "Type again: ";
-	} while (result < 1 || result>2);
-	return result == 1;
+	return inputNumber(1, 2) == 1;
 }
 
 //录入账本说明
@@ -141,15 +117,7 @@ string inputNote()
 bool inputIsN()
 {
 	cout << "Enter need(1) or unneed(2): ";
-	int result{};
-	do
-	{
-		cin >> result;
-		if (result < 1 || result>2)
-			cout << "Necessary type error!" << endl
-			<< "Type again: ";
-	} while (result < 1 || result>2);
-	return result == 1;
+	return inputNumber(1, 2) == 1;
 }
 
 //现金流创建行
@@ -232,14 +200,7 @@ int main()
 		<< "3. Create by money and money direction" << endl
 		<< "4. Flow of fund" << endl;
 	cout << "Enter operate mode: ";
-	int operMode{};
-	do
-	{
-		cin >> operMode;
-		if (operMode < 1 || operMode>4)
-			cout << "Operate number error!" << endl
-			<< "Enter operate mode again: " << endl;
-	} while (operMode < 1 || operMode>4);
+	int operMode = inputNumber(1, 4);
 	//响应操作模式
 	Line tarWriteLine;
 	Time NowTime;		//获取当前时间

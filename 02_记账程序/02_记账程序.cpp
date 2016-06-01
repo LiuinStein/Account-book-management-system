@@ -95,6 +95,48 @@ bool moneyExpense()
 	return inp == 1;
 }
 
+//使用默认备注/必需模板
+bool useDefNoteTem()
+{
+	cout << "Do you want to use the default note and necessary template?" << endl;
+	cout << "If you want type 1 else type 2: ";
+	int result{};
+	do
+	{
+		cin >> result;
+		if (result < 1 || result>2)
+			cout << "Type error!" << endl
+			<< "Type again: ";
+	} while (result < 1 || result>2);
+	return result == 1;
+}
+
+//录入账本说明
+string inputNote()
+{
+	cout << "Enter your DIY note or use default(type #1): ";
+	string tmp;
+	cin >> tmp;
+	if (tmp == "#1")
+		tmp = "无";
+	return tmp;
+}
+
+//录入是否必需
+bool inputIsN()
+{
+	cout << "Enter need(1) or unneed(2): ";
+	int result{};
+	do
+	{
+		cin >> result;
+		if (result < 1 || result>2)
+			cout << "Necessary type error!" << endl
+			<< "Type again: ";
+	} while (result < 1 || result>2);
+	return result == 1;
+}
+
 int main()
 {
 	//载入总账文件
@@ -166,6 +208,8 @@ int main()
 	//响应操作模式
 	Line tarWriteLine;
 	Time NowTime;		//获取当前时间
+	//得到上一条账目信息
+	const Account * prevAcc = (--vecOperAccBook.end())->getAccount();
 	if (operMode == 1)
 	{
 		//手工录入:
@@ -175,20 +219,32 @@ int main()
 		//映射账目说明
 		mappingDescMethod(tarWriteLine, DescMethodNum);
 		//计算账目
-		//得到上一条账目信息
-		const Account * prevAcc = (--vecOperAccBook.end())->getAccount();
 		bool isExpense = moneyExpense();	//得到收支情况
 		double operMoney = newMoney();		//得到操作现金数目
-		Account newAcc(prevAcc, operMoney, isExpense);
-		tarWriteLine.setAccount(&newAcc);
+		if (useDefNoteTem)	//是否会使用默认备注/必需模板
+			tarWriteLine.setAccount(
+				new Account(prevAcc, operMoney, 
+					isExpense));
+		else
+			tarWriteLine.setAccount(
+				new Account(prevAcc, operMoney, 
+					isExpense, inputNote(), inputIsN()));
 	}
 	else if (operMode == 2)
 	{
-
+		//根据余额
+		double balance = newBalance();
+		if (useDefNoteTem)
+			tarWriteLine.setAccount(
+				new Account(prevAcc, balance));
+		else
+			tarWriteLine.setAccount(
+				new Account(prevAcc, balance, 
+					inputNote(), inputIsN()));
 	}
 	else if (operMode == 3)
 	{
-
+		//根据现金流
 	}
 
 	system("pause");

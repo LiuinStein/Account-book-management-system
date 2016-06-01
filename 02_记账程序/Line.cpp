@@ -47,7 +47,8 @@ void Line::Analyze()
 
 }
 
-Line::Line():NowTime(nullptr),Accounts(nullptr)
+//默认构造函数
+Line::Line():NowTime(new Time()),Accounts(nullptr)
 {
 }
 
@@ -56,6 +57,12 @@ Line::Line(std::string & __inp):NowTime(new Time()),
 	LineContext(__inp)
 {
 	Analyze();
+}
+
+//写入说明
+void Line::setDescription(const char * __s)
+{
+	Description = __s;
 }
 
 //重载流输入运算符,从文件中直接读入行

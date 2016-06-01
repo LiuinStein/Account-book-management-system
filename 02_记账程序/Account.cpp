@@ -15,7 +15,7 @@ Account::Account(bool __isE, double __mon, bool __isN,
 //根据新的余额信息来生成新的Account条目
 Account calcByBalance(const Account& __last,
 	double __newBalance,
-	std::string __n = "无", bool __isN = true)
+	std::string __n, bool __isN)
 {
 	//========Account生成条目==========
 	bool		isExpense{ __last.balance - __newBalance > 0 };

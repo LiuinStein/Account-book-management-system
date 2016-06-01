@@ -195,6 +195,7 @@ int main()
 			cout << "Account book number error!" << endl
 			<< "Enter operate account book number again: " << endl;
 	} while (doNumber <= 0 || doNumber >= 10);
+
 	//打开并读入操作账本
 	ifstream readOperAccBook;
 	readOperAccBook.open(AccountBooks[doNumber]);
@@ -206,20 +207,22 @@ int main()
 		vecOperAccBook.push_back(tmp);
 	}
 	readOperAccBook.close();
+
 	//操作模式
 	cout << "There are two operate mode:" << endl
 		<< "1. Manual entry" << endl
 		<< "2. Create by balance" << endl
-		<< "3. Create by money and money direction" << endl;
+		<< "3. Create by money and money direction" << endl
+		<< "4. Flow of fund" << endl;
 	cout << "Enter operate mode: ";
 	int operMode{};
 	do
 	{
 		cin >> operMode;
-		if (operMode < 1 || operMode>3)
+		if (operMode < 1 || operMode>4)
 			cout << "Operate number error!" << endl
 			<< "Enter operate mode again: " << endl;
-	} while (operMode < 1 || operMode>3);
+	} while (operMode < 1 || operMode>4);
 	//响应操作模式
 	Line tarWriteLine;
 	Time NowTime;		//获取当前时间
@@ -253,7 +256,21 @@ int main()
 		//根据现金流
 		CreateLineByMoney(tarWriteLine, prevAcc);
 	}
+	else if (operMode == 4)
+	{
+		
+	}
 
+	//将当前的Line写入当前操作账本
+	ofstream writeOperAccBook;
+	writeOperAccBook.open(AccountBooks[doNumber]);
+	writeOperAccBook << tarWriteLine << endl;
+
+	//写总账
+	ofstream writeAllAccBook;
+	writeAllAccBook.open(AllAccount);
+	writeAllAccBook << tarWriteLine << '\t'
+		<< AccountBooks[doNumber] << endl;
 
 	system("pause");
 	return 0;

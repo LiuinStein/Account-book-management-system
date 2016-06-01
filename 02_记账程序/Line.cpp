@@ -91,6 +91,6 @@ std::ifstream& operator>>(std::ifstream& __ifs, Line& __l)
 std::ofstream & operator<<(std::ofstream & __ofs, Line & __l)
 {
 	__ofs << __l.NowTime << '\t' << __l.Description
-		<< __l.Accounts << std::endl;
+		<< __l.Accounts;
 	return __ofs;
 }

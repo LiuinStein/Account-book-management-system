@@ -204,13 +204,10 @@ int main()
 	//打开并读入操作账本
 	ifstream readOperAccBook;
 	readOperAccBook.open(AccountBooks[doNumber]);
-	vector<Line> vecOperAccBook;
+	string lastLineStr;
 	while (readOperAccBook.good())
-	{
-		Line tmp;
-		readOperAccBook >> tmp;
-		vecOperAccBook.push_back(tmp);
-	}
+		readOperAccBook >> lastLineStr;
+	Line lastLine(lastLineStr);
 	readOperAccBook.close();
 
 	//操作模式
@@ -232,7 +229,7 @@ int main()
 	Line tarWriteLine;
 	Time NowTime;		//获取当前时间
 	//得到上一条账目信息
-	const Account * prevAcc = (--vecOperAccBook.end())->getAccount();
+	const Account * prevAcc = lastLine.getAccount();
 	if (operMode == 1)
 	{
 		//手工录入:
@@ -265,7 +262,17 @@ int main()
 	{
 		//内部资金流通
 		Line tarWriteLine_2;
-
+		ListAccBooks();		//列账本
+		cout << "From: ";
+		int from{};
+		cin >> from;
+		cout << "To: ";
+		int to{};
+		cin >> to;
+		cout << "Money: ";
+		double money{};
+		cin >> money;
+		
 	}
 
 	//打开必要文件

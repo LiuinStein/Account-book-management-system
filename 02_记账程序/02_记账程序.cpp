@@ -137,6 +137,7 @@ bool inputIsN()
 	return result == 1;
 }
 
+//现金流创建行
 void CreateLineByMoney(Line & tarWriteLine,
 	const Account * prevAcc)
 {
@@ -165,9 +166,11 @@ int main()
 		vecAllAccount.push_back(tmp);
 	}
 	readAllAccount.close();
+
 	//欢迎界面:
 	cout << "Welcome to lyst Account book management system" << endl;
 	cout << "Enter Password: ";
+
 	//密码验证部分
 	string key;
 	bool keyCorrect;
@@ -181,10 +184,12 @@ int main()
 			cout << "Enter Password again: ";
 		}
 	} while (!keyCorrect);
+
 	//主程序界面
 	system("cls");
 	cout << "Welcome to lyst Account book management system" << endl;
 	ListAccBooks();
+
 	//录入操作账本序号
 	cout << "Enter operate account book number: ";
 	int doNumber{};
@@ -248,7 +253,7 @@ int main()
 				new Account(prevAcc, balance));
 		else
 			tarWriteLine.setAccount(
-				new Account(prevAcc, balance, 
+				new Account(prevAcc, balance,
 					inputNote(), inputIsN()));
 	}
 	else if (operMode == 3)
@@ -258,19 +263,27 @@ int main()
 	}
 	else if (operMode == 4)
 	{
-		
+		//内部资金流通
+		Line tarWriteLine_2;
+
 	}
 
-	//将当前的Line写入当前操作账本
+	//打开必要文件
 	ofstream writeOperAccBook;
 	writeOperAccBook.open(AccountBooks[doNumber]);
-	writeOperAccBook << tarWriteLine << endl;
-
-	//写总账
 	ofstream writeAllAccBook;
 	writeAllAccBook.open(AllAccount);
-	writeAllAccBook << tarWriteLine << '\t'
-		<< AccountBooks[doNumber] << endl;
+
+	//单独处理内部资金流通情况
+	if (operMode != 4)
+	{
+		//将当前的Line写入当前操作账本
+		writeOperAccBook << tarWriteLine << endl;
+		//写总账	
+		writeAllAccBook << tarWriteLine << '\t'
+			<< AccountBooks[doNumber] << "无" << endl;
+	}
+
 
 	system("pause");
 	return 0;

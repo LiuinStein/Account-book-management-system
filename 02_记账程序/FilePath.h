@@ -13,3 +13,6 @@ const std::string Bank8261		= WorkBookDic + "工行尾号8261.xls";
 const std::string Bank6525		= WorkBookDic + "工行尾号6525.xls";
 const std::string Campus		= WorkBookDic + "校园卡日记账.xls";
 
+const std::string AccountBooks[]{ AllAccount ,CashAccount ,
+GoldAccount ,JDfinance ,AliPay ,Bank4852 ,
+Bank9776 ,Bank8261 ,Bank6525 ,Campus };

@@ -11,6 +11,21 @@
 
 using namespace std;
 
+//录入区间数[__s,__e]
+int inputNumber(int __s, int __e)
+{
+	int result{};
+	do
+	{
+		cin >> result;
+		if (result < __s || result > __e)
+			cout << "Type error! You must type a number range of ["
+			<< __s << "," << __e << "]" << endl
+			<< "Type again: " << endl;
+	} while (result < __s || result > __e);
+	return result;
+}
+
 //列出账目清单
 void ListAccBooks()
 {
@@ -261,7 +276,7 @@ int main()
 	else if (operMode == 4)
 	{
 		//内部资金流通
-		Line tarWriteLine_2;
+		Line tarWriteLine_to;
 		ListAccBooks();		//列账本
 		cout << "From: ";
 		int from{};
@@ -272,7 +287,14 @@ int main()
 		cout << "Money: ";
 		double money{};
 		cin >> money;
-		
+		if (useDefNoteTem)
+		{
+
+		}
+		else
+		{
+
+		}
 	}
 
 	//打开必要文件

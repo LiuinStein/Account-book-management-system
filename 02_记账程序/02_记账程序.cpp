@@ -137,6 +137,21 @@ bool inputIsN()
 	return result == 1;
 }
 
+void CreateLineByMoney(Line & tarWriteLine,
+	const Account * prevAcc)
+{
+	bool isExpense = moneyExpense();	//得到收支情况
+	double operMoney = newMoney();		//得到操作现金数目
+	if (useDefNoteTem)	//是否会使用默认备注/必需模板
+		tarWriteLine.setAccount(
+			new Account(prevAcc, operMoney,
+				isExpense));
+	else
+		tarWriteLine.setAccount(
+			new Account(prevAcc, operMoney,
+				isExpense, inputNote(), inputIsN()));
+}
+
 int main()
 {
 	//载入总账文件
@@ -219,16 +234,7 @@ int main()
 		//映射账目说明
 		mappingDescMethod(tarWriteLine, DescMethodNum);
 		//计算账目
-		bool isExpense = moneyExpense();	//得到收支情况
-		double operMoney = newMoney();		//得到操作现金数目
-		if (useDefNoteTem)	//是否会使用默认备注/必需模板
-			tarWriteLine.setAccount(
-				new Account(prevAcc, operMoney, 
-					isExpense));
-		else
-			tarWriteLine.setAccount(
-				new Account(prevAcc, operMoney, 
-					isExpense, inputNote(), inputIsN()));
+		CreateLineByMoney(tarWriteLine, prevAcc);
 	}
 	else if (operMode == 2)
 	{
@@ -245,7 +251,9 @@ int main()
 	else if (operMode == 3)
 	{
 		//根据现金流
+		CreateLineByMoney(tarWriteLine, prevAcc);
 	}
+
 
 	system("pause");
 	return 0;

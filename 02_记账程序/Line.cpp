@@ -65,6 +65,12 @@ void Line::setDescription(const char * __s)
 	Description = __s;
 }
 
+//写入账目信息
+void Line::setAccount(Account* __s)
+{
+	Accounts = __s;
+}
+
 //读取账目信息
 const Account* Line::getAccount() const
 {

@@ -21,6 +21,9 @@ public:
 	//写入说明
 	void setDescription(const char * __s);
 
+	//写入账目信息
+	void setAccount(Account * __s);
+
 	//读取账目信息
 	const Account * getAccount()const;
 

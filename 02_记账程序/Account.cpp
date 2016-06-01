@@ -30,7 +30,13 @@ Account::Account(const Account* __last, double __mon,
 	balance(__isE ? __last->balance - __mon : __last->balance + __mon),
 	allCost(__isE ? __mon : 0), allIncome(__isE ? 0 : __mon){}
 
-	//重载流运算符,将Account直接写入文件
+//得到余额
+double Account::getBalance() const
+{
+	return balance;
+}
+
+//重载流运算符,将Account直接写入文件
 	std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 {
 	std::string InAndOut = __w.isExpense ? "支出" : "收入";

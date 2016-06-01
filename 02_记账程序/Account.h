@@ -25,6 +25,9 @@ public:
 	Account(const Account * __last, double __mon,
 		bool __isE, std::string __n = "无", bool __isN = true);
 
+	//得到余额
+	double getBalance()const;
+
 	//重载流运算符,将Account直接写入文件
 	friend std::ofstream& operator<<(std::ofstream& __ofs, Account & __w);
 };

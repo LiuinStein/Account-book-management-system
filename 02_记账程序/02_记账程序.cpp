@@ -168,6 +168,7 @@ int main()
 	Time NowTime;		//获取当前时间
 	if (operMode == 1)
 	{
+		//手工录入:
 		//说明
 		//获取账目说明
 		int DescMethodNum{ getDescMethodNum() };
@@ -176,8 +177,10 @@ int main()
 		//计算账目
 		//得到上一条账目信息
 		const Account * prevAcc = (--vecOperAccBook.end())->getAccount();
-		//Account newAcc(prevAcc,)
-
+		bool isExpense = moneyExpense();	//得到收支情况
+		double operMoney = newMoney();		//得到操作现金数目
+		Account newAcc(prevAcc, operMoney, isExpense);
+		tarWriteLine.setAccount(&newAcc);
 	}
 	else if (operMode == 2)
 	{

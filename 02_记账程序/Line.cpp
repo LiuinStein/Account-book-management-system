@@ -65,6 +65,12 @@ void Line::setDescription(const char * __s)
 	Description = __s;
 }
 
+//读取账目信息
+const Account* Line::getAccount() const
+{
+	return Accounts;
+}
+
 //重载流输入运算符,从文件中直接读入行
 std::ifstream& operator>>(std::ifstream& __ifs, Line& __l)
 {

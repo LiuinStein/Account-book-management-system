@@ -21,6 +21,9 @@ public:
 	//写入说明
 	void setDescription(const char * __s);
 
+	//读取账目信息
+	const Account * getAccount()const;
+
 	//重载流输入运算符,从文件中直接读入行
 	friend std::ifstream& operator>> (std::ifstream & __ifs,Line & __l);
 	

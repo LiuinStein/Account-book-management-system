@@ -18,8 +18,12 @@ public:
 		double __allC, double __allI);
 
 	//根据新的余额信息来生成新的Account条目
-	friend Account calcByBalance(const Account & __last, double __newBalance,
+	Account(const Account * __last, double __newBalance,
 		std::string __n = "无", bool __isN = true);
+
+	//根据流动数额多少来生成新的Account条目
+	Account(const Account * __last, double __mon,
+		bool __isE, std::string __n = "无", bool __isN = true);
 
 	//重载流运算符,将Account直接写入文件
 	friend std::ofstream& operator<<(std::ofstream& __ofs, Account & __w);

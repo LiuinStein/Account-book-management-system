@@ -26,7 +26,7 @@ void ListAccBooks()
 		<< "9. 校园卡日记账.xls" << endl;
 }
 
-//返回账目操作模式
+//返回账目说明
 //1. 饭 2. 内部资金流通 3. 父母给 4. New description
 int getDescMethodNum()
 {
@@ -44,7 +44,7 @@ int getDescMethodNum()
 	return desNumber;
 }
 
-//将操作模式映射为账本说明并写入Line
+//将账目说明映射为账本说明并写入Line
 void mappingDescMethod(Line & __w, int __dmn)
 {
 	if (__dmn == 1)
@@ -60,6 +60,39 @@ void mappingDescMethod(Line & __w, int __dmn)
 		cin >> tmp;
 		__w.setDescription(tmp.c_str());
 	}
+}
+
+//输入余额
+double newBalance()
+{
+	cout << "Enter a new balance: ";
+	double result{};
+	cin >> result;
+	return result;
+}
+
+//输入现金流
+double newMoney()
+{
+	cout << "Enter a money stream: ";
+	double result{};
+	cin >> result;
+	return result;
+}
+
+//使用现金流操作时的收入支出(支出返回true)
+bool moneyExpense()
+{
+	cout << "Expense or Income(1 or 2): ";
+	int inp{};
+	do
+	{
+		cin >> inp;
+		if (inp < 1 || inp>2)
+			cout << "Expense or income number input error!" << endl
+			<< "Expense or Income(1 or 2): ";
+	} while (inp < 1 || inp>2);
+	return inp == 1;
 }
 
 int main()
@@ -119,34 +152,41 @@ int main()
 	//操作模式
 	cout << "There are two operate mode:" << endl
 		<< "1. Manual entry" << endl
-		<< "2. Create by balance" << endl;
+		<< "2. Create by balance" << endl
+		<< "3. Create by money and money direction" << endl;
 	cout << "Enter operate mode: ";
 	int operMode{};
 	do
 	{
 		cin >> operMode;
-		if (operMode < 1 || operMode>2)
+		if (operMode < 1 || operMode>3)
 			cout << "Operate number error!" << endl
 			<< "Enter operate mode again: " << endl;
-	} while (operMode < 1 || operMode>2);
+	} while (operMode < 1 || operMode>3);
 	//响应操作模式
 	Line tarWriteLine;
 	Time NowTime;		//获取当前时间
 	if (operMode == 1)
 	{
-		//操作模式
-		//获取账目操作模式
+		//说明
+		//获取账目说明
 		int DescMethodNum{ getDescMethodNum() };
-		//映射账目操作模式
+		//映射账目说明
 		mappingDescMethod(tarWriteLine, DescMethodNum);
 		//计算账目
+		//得到上一条账目信息
+		const Account * prevAcc = (--vecOperAccBook.end())->getAccount();
+		//Account newAcc(prevAcc,)
 
 	}
 	else if (operMode == 2)
 	{
 
 	}
+	else if (operMode == 3)
+	{
 
+	}
 
 	system("pause");
 	return 0;

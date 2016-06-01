@@ -6,33 +6,32 @@
 //构造函数
 Account::Account(bool __isE, double __mon, bool __isN,
 	std::string __note, double __bal, double __allC,
-	double __allI)
-	:
+	double __allI) :
 	isExpense(__isE), money(__mon), isNecessary(__isN),
 	Note(__note), balance(__bal), allCost(__allC),
 	allIncome(__allI) {}
 
 //根据新的余额信息来生成新的Account条目
-Account calcByBalance(const Account& __last,
+Account::Account(const Account* __last,
 	double __newBalance,
-	std::string __n, bool __isN)
-{
-	//========Account生成条目==========
-	bool		isExpense{ __last.balance - __newBalance > 0 };
-	double		money{ fabs(__last.balance - __newBalance) };
-	bool		isNecessary{ __isN };
-	std::string Note{ __n };
-	double		balance{ __newBalance };
-	double		allCost{ isExpense ? __last.balance - __newBalance : 0 };
-	double		allIncome{ isExpense ? 0 : __newBalance - __last.balance };
-	//=================================
-	Account result(isExpense, money, isNecessary,
-		Note, balance, allCost, allIncome);
-	return result;
-}
+	std::string __n, bool __isN) :
+	isExpense(__last->balance - __newBalance > 0),
+	money(fabs(__last->balance - __newBalance)),
+	isNecessary(__isN), Note(__n),
+	balance(__newBalance),
+	allCost(isExpense ? __last->balance - __newBalance : 0),
+	allIncome(isExpense ? 0 : __newBalance - __last->balance) {}
 
-//重载流运算符,将Account直接写入文件
-std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
+//根据流动数额多少来生成新的Account条目
+Account::Account(const Account* __last, double __mon,
+	bool __isE, std::string __n, bool __isN) :
+	isExpense(__isE), money(__mon),
+	isNecessary(__isN), Note(__n),
+	balance(__isE ? __last->balance - __mon : __last->balance + __mon),
+	allCost(__isE ? __mon : 0), allIncome(__isE ? 0 : __mon){}
+
+	//重载流运算符,将Account直接写入文件
+	std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 {
 	std::string InAndOut = __w.isExpense ? "支出" : "收入";
 	std::string Necessary = __w.isNecessary ? "必需" : "非必需";

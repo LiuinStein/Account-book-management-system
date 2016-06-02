@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainOperate.h"
+#include "FilePath.h"
 #include <iostream>
 
 //从界面录入区间数
@@ -48,8 +49,37 @@ void MainOperate::printOperMode() const
 		<< "4. Flow of fund" << std::endl;
 }
 
+//载入总账文件
+void MainOperate::loadAllBill()
+{
+	readAllBill.open(AllAccount);
+	std::string tmp;
+	while (readAllBill.good())
+		readAllBill >> tmp;
+	allBillLastLine = tmp;
+	readAllBill.close();
+}
+
+//通过编号载入账本
+void MainOperate::loadBillByNum(int __i, 
+	bool __isFrom)
+{
+	//通过__isFrom决定使用哪一个
+	std::ifstream * load = __isFrom ?
+		&readOperBillFrom : &readOperBillTo;
+	Line * read = __isFrom ?
+		&fromBillLastLine : &toBillLastLine;
+	load->open(AccountBooks[__i]);
+	std::string tmp;
+	while (load->good())
+		(*load) >> tmp;
+	*read = tmp;
+	load->close();
+}
+
 MainOperate::MainOperate()
 {
+	
 }
 
 

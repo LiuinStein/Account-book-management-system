@@ -1,7 +1,7 @@
 #pragma once
 #include "Time.h"
 #include "Account.h"
-#include <vector>
+#include <sstream>
 
 class Line
 {
@@ -9,8 +9,8 @@ protected:
 	Time*		NowTime;		//时间
 	std::string Description;	//说明
 	Account*	Accounts;		//账目
-private:
 	std::string LineContext;	//行信息
+	std::stringstream ss;		//录入流
 
 	void Analyze();	//行信息分析
 
@@ -29,6 +29,9 @@ public:
 
 	//读取账目信息
 	const Account * getAccount()const;
+
+	//重载赋值运算符,直接从字符串中读入行
+	void operator=(std::string & __str);
 
 	//重载流输入运算符,从文件中直接读入行
 	friend std::ifstream& operator>> (std::ifstream & __ifs,Line & __l);

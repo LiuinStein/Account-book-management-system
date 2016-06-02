@@ -109,16 +109,7 @@ void CreateLineByMoney(Line & tarWriteLine,
 int main()
 {
 	//载入总账文件
-	ifstream readAllAccount;
-	readAllAccount.open(AllAccount);
-	vector<Line> vecAllAccount;		//存储总账中所有的行
-	while (readAllAccount.good())
-	{
-		Line tmp;
-		readAllAccount >> tmp;
-		vecAllAccount.push_back(tmp);
-	}
-	readAllAccount.close();
+	
 
 	//欢迎界面:
 	cout << "Welcome to lyst Account book management system" << endl;

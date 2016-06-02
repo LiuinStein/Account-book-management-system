@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include "Account.h"
+#include "AllAccountLine.h"
 
 //我要把所有的操作全部放入这个类中
 class MainOperate
@@ -19,16 +20,23 @@ private:
 	std::ofstream writeOperBillTo;	//为内部资金流通准备的副账输出流
 
 	//读入的账目信息(字符串)
-	std::string allBillLastStr;		//总账最后一条账目信息
-	std::string fromBillLastStr;	//来源账最后一条账目信息
-	std::string toBillLastStr;		//副账最后一条账目信息
+	//std::string allBillLastStr;		//总账最后一条账目信息
+	//std::string fromBillLastStr;	//来源账最后一条账目信息
+	//std::string toBillLastStr;		//副账最后一条账目信息	
+
+	//读入行(Line)
+	AllAccountLine allBillLastLine;
+	Line fromBillLastLine;
+	Line toBillLastLine;
 
 	//读入的账目信息(转化后的Account类)
-	Account * prevLastBillFrom;		//来源账
-	Account * prevLastBillTo;		//副账
+	//Account * prevLastAllBill;		//总账
+	//Account * prevLastBillFrom;		//来源账
+	//Account * prevLastBillTo;			//副账
 
 	//数据
 	int operBillFromNum;	//操作账本序号[1,9]
+	int operBillToNum;		//为内部资金流通准备的副账编号
 	int operModeNum;		//账本操作码[1,4]
 
 
@@ -41,6 +49,12 @@ private:
 
 	//列出操作模式
 	void printOperMode()const;
+
+	//载入总账文件
+	void loadAllBill();
+
+	//通过编号载入账本
+	void loadBillByNum(int __i, bool __isFrom);
 
 public:
 	MainOperate();

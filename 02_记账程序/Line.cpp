@@ -7,7 +7,7 @@
 //行信息分析
 void Line::Analyze()
 {
-	std::stringstream ss(LineContext);		//录入流
+	ss << LineContext;		//录入流
 	//解析流
 	//解析时间
 	std::string date, time;
@@ -53,8 +53,7 @@ Line::Line():NowTime(new Time()),Accounts(nullptr)
 }
 
 //解析字符串得到一条账目信息
-Line::Line(std::string & __inp):NowTime(new Time()),
-	LineContext(__inp)
+Line::Line(std::string & __inp) : LineContext(__inp)
 {
 	Analyze();
 }
@@ -81,6 +80,13 @@ void Line::setAccount(Account* __s)
 const Account* Line::getAccount() const
 {
 	return Accounts;
+}
+
+//重载赋值运算符,直接从字符串中读入行
+void Line::operator=(std::string& __str)
+{
+	LineContext = __str;
+	Analyze();
 }
 
 //重载流输入运算符,从文件中直接读入行

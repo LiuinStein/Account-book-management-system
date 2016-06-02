@@ -52,6 +52,7 @@ void MainOperate::printOperMode() const
 //载入总账文件
 void MainOperate::loadAllBill()
 {
+	std::ifstream readAllBill;//.open(AllAccount);
 	readAllBill.open(AllAccount);
 	std::string tmp;
 	while (readAllBill.good())
@@ -61,9 +62,9 @@ void MainOperate::loadAllBill()
 }
 
 //通过编号载入账本
-void MainOperate::loadBillByNum(int __i, 
-	bool __isFrom)
+void MainOperate::loadBillByNum(int __i, bool __isFrom)
 {
+	/*
 	//通过__isFrom决定使用哪一个
 	std::ifstream * load = __isFrom ?
 		&readOperBillFrom : &readOperBillTo;
@@ -74,8 +75,20 @@ void MainOperate::loadBillByNum(int __i,
 	while (load->good())
 		(*load) >> tmp;
 	*read = tmp;
-	load->close();
+	load->close();*/
+	Line * read = __isFrom ?
+		&fromBillLastLine : &toBillLastLine;
+	std::ifstream load;
+	load.open(AccountBooks[__i]);
+	std::string tmp;
+	while (load.good())
+		load >> tmp;
+	*read = tmp;
+	load.close();
 }
+
+//写入总账文件
+
 
 MainOperate::MainOperate()
 {

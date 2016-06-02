@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <fstream>
+//#include <fstream>
 #include "Account.h"
 #include "AllAccountLine.h"
 
@@ -10,14 +10,14 @@ class MainOperate
 private:
 
 	//文件输入流
-	std::ifstream readAllBill;		//总账输入流
-	std::ifstream readOperBillFrom;	//来源账本输入流
-	std::ifstream readOperBillTo;	//为内部资金流通准备的副账输入流
+	//std::ifstream readAllBill;		//总账输入流
+	//std::ifstream readOperBillFrom;	//来源账本输入流
+	//std::ifstream readOperBillTo;	//为内部资金流通准备的副账输入流
 
 	//文件输出流
-	std::ofstream writeAllBill;		//总账输出流
-	std::ofstream writeOperBillFrom;//来源账输出流
-	std::ofstream writeOperBillTo;	//为内部资金流通准备的副账输出流
+	//std::ofstream writeAllBill;		//总账输出流
+	//std::ofstream writeOperBillFrom;//来源账输出流
+	//std::ofstream writeOperBillTo;	//为内部资金流通准备的副账输出流
 
 	//读入的账目信息(字符串)
 	//std::string allBillLastStr;		//总账最后一条账目信息
@@ -28,6 +28,11 @@ private:
 	AllAccountLine allBillLastLine;
 	Line fromBillLastLine;
 	Line toBillLastLine;
+
+	//写入行(Line)
+	AllAccountLine allBillWriteLine;
+	Line fromBillWriteLine;
+	Line toBillWriteLine;
 
 	//读入的账目信息(转化后的Account类)
 	//Account * prevLastAllBill;		//总账

@@ -126,7 +126,7 @@ void CreateLineByMoney(Line & tarWriteLine,
 {
 	bool isExpense = moneyExpense();	//得到收支情况
 	double operMoney = newMoney();		//得到操作现金数目
-	if (useDefNoteTem)	//是否会使用默认备注/必需模板
+	if (useDefNoteTem())	//是否会使用默认备注/必需模板
 		tarWriteLine.setAccount(
 			new Account(prevAcc, operMoney,
 				isExpense));
@@ -221,7 +221,7 @@ int main()
 	{
 		//根据余额
 		double balance = newBalance();
-		if (useDefNoteTem)
+		if (useDefNoteTem())
 			tarWriteLine.setAccount(
 				new Account(prevAcc, balance));
 		else
@@ -248,7 +248,7 @@ int main()
 		cout << "Money: ";
 		double money{};
 		cin >> money;
-		if (useDefNoteTem)
+		if (useDefNoteTem())
 		{
 
 		}

@@ -10,7 +10,7 @@ double String::StringToNumber()
 	double result{};
 	bool LeftPoint = true;	//操作单元是否在小数点左边
 	int LeftPointBit = -1;
-	for (auto i = 0; i < BaseString.size(); i++)
+	for (size_t i = 0; i < BaseString.size(); i++)
 		if (BaseString[i] >= '0' && BaseString[i] <= '9')
 			if (LeftPoint)
 				result = result * 10 + int(BaseString[i] - '0');

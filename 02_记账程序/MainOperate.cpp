@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-//从界面录入区间数
+//从界面录入区间数[__s,__e]
 int MainOperate::inputNumber(int __s, int __e,
 	const char * InputError)const
 {
@@ -40,6 +40,13 @@ void MainOperate::printAccBooks() const
 		<< "9. 校园卡日记账.xls" << std::endl;
 }
 
+//输入操作账本编号
+void MainOperate::inputOperBill(bool __isFrom)
+{
+	__isFrom ? operBillFromNum = inputNumber(1, 9) :
+		operBillToNum = inputNumber(1, 9);
+}
+
 //列出账本操作码
 void MainOperate::printOperMode() const
 {
@@ -48,6 +55,14 @@ void MainOperate::printOperMode() const
 		<< "2. Create by balance" << std::endl
 		<< "3. Create by money and money direction" << std::endl
 		<< "4. Flow of fund" << std::endl;
+}
+
+//输入并映射账本操作码
+void MainOperate::mappingOperMode()
+{
+	std::cout << "Enter operate mode: ";
+	operModeNum = inputNumber(1, 4);
+	//TODO: 往下映射账本操作模式
 }
 
 //载入总账文件
@@ -87,6 +102,59 @@ void MainOperate::loadBillByNum(int __i, bool __isFrom)
 	*read = tmp;
 	load.close();
 }
+
+//是否使用默认备注/必需模板
+bool MainOperate::useDefNoteTem()
+{
+	std::cout << "Do you want to use the default note and necessary template?" << std::endl;
+	std::cout << "If you want type 1 else type 2: ";
+	return inputNumber(1, 2) == 1;
+}
+
+//录入账本说明
+std::string MainOperate::inputNote()
+{
+	std::cout << "Enter your DIY note or use default(type #1): ";
+	std::string tmp;
+	std::cin >> tmp;
+	if (tmp == "#1")
+		tmp = "无";
+	return tmp;
+}
+
+//录入是否必需
+bool MainOperate::inputIsN()
+{
+	std::cout << "Enter need(1) or unneed(2): ";
+	return inputNumber(1, 2) == 1;
+}
+
+//通过余额来写入Line
+void MainOperate::createLineByBal(Line * __new, 
+	Line * __prev)
+{
+	//输入新余额
+	std::cout << "Enter new balance: ";
+	double newBalance{};
+	do
+	{
+		std::cin >> newBalance;	
+		if (newBalance < 0)
+			std::cout << "Balance requires > 0" << std::endl
+			<< "Type again: ";
+	} while (newBalance < 0);
+	//写入Line
+	if (useDefNoteTem())
+		(*__new).setAccount(
+			new Account(__prev->getAccount(), newBalance));
+	else
+		(*__new).setAccount(
+			new Account(__prev->getAccount(), newBalance,
+				inputNote(), inputIsN()));
+
+}
+
+
 
 //写入所有更改账本文件
 void MainOperate::writeBill()

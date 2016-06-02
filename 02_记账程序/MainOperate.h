@@ -52,14 +52,32 @@ private:
 	//输出账目清单
 	void printAccBooks()const;
 
+	//输入操作账本编号
+	void inputOperBill(bool __isFrom);
+
 	//列出操作模式
 	void printOperMode()const;
+
+	//输入并映射账本操作模式
+	void mappingOperMode();
 
 	//载入总账文件
 	void loadAllBill();
 
 	//通过编号载入账本
 	void loadBillByNum(int __i, bool __isFrom);
+
+	//是否使用默认备注/必需模板
+	bool useDefNoteTem();
+
+	//录入账本说明
+	std::string inputNote();
+
+	//录入是否必需
+	bool inputIsN();
+
+	//通过余额写入Line
+	void createLineByBal(Line * __new, Line * __prev);
 
 	//写入所有更改账本文件
 	void writeBill();

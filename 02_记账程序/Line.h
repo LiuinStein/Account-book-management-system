@@ -30,6 +30,9 @@ public:
 	//读取账目信息
 	const Account * getAccount()const;
 
+	//重载赋值运算符
+	void operator=(const Line & __c);
+
 	//重载赋值运算符,直接从字符串中读入行
 	void operator=(std::string & __str);
 

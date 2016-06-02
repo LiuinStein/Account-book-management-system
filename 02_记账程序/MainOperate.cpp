@@ -2,6 +2,7 @@
 #include "MainOperate.h"
 #include "FilePath.h"
 #include <iostream>
+#include <fstream>
 
 //从界面录入区间数
 int MainOperate::inputNumber(int __s, int __e,
@@ -39,7 +40,7 @@ void MainOperate::printAccBooks() const
 		<< "9. 校园卡日记账.xls" << std::endl;
 }
 
-//列出操作模式
+//列出账本操作码
 void MainOperate::printOperMode() const
 {
 	std::cout << "There are four operate mode:" << std::endl
@@ -87,8 +88,28 @@ void MainOperate::loadBillByNum(int __i, bool __isFrom)
 	load.close();
 }
 
-//写入总账文件
+//写入所有更改账本文件
+void MainOperate::writeBill()
+{
+	//写入总账
+	std::ofstream writeBill;
+	writeBill.open(AllAccount);
+	writeBill << allBillWriteLine << std::endl;
+	writeBill.close();
 
+	//写入来源账本
+	writeBill.open(AccountBooks[operBillFromNum]);
+	writeBill << fromBillWriteLine << std::endl;
+	writeBill.close();
+
+	//写入副账账本(如果有的话)
+	if(operModeNum==4 && operBillToNum>0)
+	{
+		writeBill.open(AccountBooks[operBillToNum]);
+		writeBill << toBillWriteLine << std::endl;
+		writeBill.close();
+	}
+}
 
 MainOperate::MainOperate()
 {

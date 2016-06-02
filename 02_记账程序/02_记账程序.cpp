@@ -164,11 +164,7 @@ int main()
 	readOperAccBook.close();
 
 	//²Ù×÷Ä£Ê½
-	cout << "There are two operate mode:" << endl
-		<< "1. Manual entry" << endl
-		<< "2. Create by balance" << endl
-		<< "3. Create by money and money direction" << endl
-		<< "4. Flow of fund" << endl;
+	
 	cout << "Enter operate mode: ";
 	//int operMode = inputNumber(1, 4);
 

@@ -38,6 +38,16 @@ void MainOperate::printAccBooks() const
 		<< "9. 校园卡日记账.xls" << std::endl;
 }
 
+//列出操作模式
+void MainOperate::printOperMode() const
+{
+	std::cout << "There are four operate mode:" << std::endl
+		<< "1. Manual entry" << std::endl
+		<< "2. Create by balance" << std::endl
+		<< "3. Create by money and money direction" << std::endl
+		<< "4. Flow of fund" << std::endl;
+}
+
 MainOperate::MainOperate()
 {
 }

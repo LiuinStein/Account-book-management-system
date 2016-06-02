@@ -82,8 +82,12 @@ private:
 	//录入收支情况
 	EIMODE ExpOrInc()const;
 
+	//返回账目说明
+	//1. 饭 2. 内部资金流通 3. 父母给 4. New description
+	void MainOperate::DescMethod(Line & __m);
+
 	//通过资金流写入Line
-	void creaateLineByFlow(Line & __new, Line & __prev);
+	void createLineByFlow(Line & __new, Line & __prev);
 
 	//写入所有更改账本文件
 	void writeBill();

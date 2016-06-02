@@ -53,16 +53,37 @@ void MainOperate::printOperMode() const
 	std::cout << "There are four operate mode:" << std::endl
 		<< "1. Manual entry" << std::endl
 		<< "2. Create by balance" << std::endl
-		<< "3. Create by money and money direction" << std::endl
-		<< "4. Flow of fund" << std::endl;
+		<< "3. Flow of fund" << std::endl;
 }
 
 //输入并映射账本操作码
 void MainOperate::mappingOperMode()
 {
 	std::cout << "Enter operate mode: ";
-	operModeNum = inputNumber(1, 4);
+	operModeNum = inputNumber(1, 3);
 	//TODO: 往下映射账本操作模式
+	if (operModeNum == 1)
+	{
+		//资金流(父母给,单方面注入/输出)
+		DescMethod(fromBillWriteLine);	//写入说明
+		//写入计算数据
+		createLineByFlow(fromBillWriteLine,
+			fromBillLastLine);
+	}
+	else if(operModeNum == 2)
+	{
+		//根据余额(校园卡)
+	}
+	//else if (operModeNum == 3)
+	//{
+	//	//资金流(父母给,单方面注入/输出)
+	//	createLineByFlow(fromBillWriteLine,
+	//		fromBillLastLine);
+	//}
+	else if (operModeNum == 3)
+	{
+		//内部资金流通
+	}
 }
 
 //载入总账文件
@@ -161,8 +182,31 @@ EIMODE MainOperate::ExpOrInc() const
 	return inputNumber(1, 2) == 1 ? Expense : Income;
 }
 
+//录入并映射账目说明
+//1. 饭 2. 内部资金流通 3. 父母给 4. New description
+void MainOperate::DescMethod(Line & __m)
+{
+	std::cout << "Choose a Income/Expense description in this option:" << std::endl;
+	std::cout << "Default option: 1. 饭 2. 内部资金流通 3. 父母给 4. New description" << std::endl;
+	std::cout << "Enter a option number: ";
+	int noteMode{ inputNumber(1, 4) };
+	if (noteMode == 1)
+		__m.setDescription("饭");
+	else if (noteMode == 2)
+		__m.setDescription("内部资金流通");
+	else if (noteMode == 3)
+		__m.setDescription("父母给");
+	else if (noteMode == 4)
+	{
+		std::cout << "Enter a new description: ";
+		std::string tmp;
+		std::cin >> tmp;
+		__m.setDescription(tmp.c_str());
+	}
+}
+
 //通过资金流写入Line
-void MainOperate::creaateLineByFlow(Line& __new, 
+void MainOperate::createLineByFlow(Line& __new, 
 	Line& __prev)
 {
 	EIMODE expOrInc = ExpOrInc();	//得到收支情况

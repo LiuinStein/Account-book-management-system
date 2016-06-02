@@ -61,6 +61,9 @@ private:
 	//通过编号载入账本
 	void loadBillByNum(int __i, bool __isFrom);
 
+	//写入所有更改账本文件
+	void writeBill();
+
 public:
 	MainOperate();
 	~MainOperate();

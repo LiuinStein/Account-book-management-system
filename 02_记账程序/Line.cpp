@@ -82,6 +82,16 @@ const Account* Line::getAccount() const
 	return Accounts;
 }
 
+//重载赋值运算符
+void Line::operator=(const Line& __c)
+{	
+	//防止__c对象被删除,将里面的指针内容进行复制再赋值
+	NowTime = new Time(*__c.NowTime);
+	Description = __c.Description;
+	Accounts = new Account(*__c.Accounts);	//同上
+	LineContext = __c.LineContext;
+}
+
 //重载赋值运算符,直接从字符串中读入行
 void Line::operator=(std::string& __str)
 {

@@ -19,7 +19,7 @@ void Line::Analyze()
 
 	//解析账目信息
 	//=======待解析账目信息列表==========
-		bool		isExpense;		//支出为true,收入为false
+		EIMODE		EIMode;		
 		double		money;			//流动金额
 		bool		isNecessary;	//必需为true
 		std::string Note;			//备注
@@ -30,7 +30,7 @@ void Line::Analyze()
 	std::string tmp;
 	//解析收入支出
 	ss >> tmp;
-	isExpense = tmp == "收入" ? false : true;
+	EIMode = tmp == "收入" ? Income : Expense;
 	//解析流动金额
 	ss >> money;
 	//解析是否必需
@@ -42,7 +42,7 @@ void Line::Analyze()
 	ss >> balance >> allCost >> allIncome;
 
 	//通过解析信息构建Calc
-	Accounts = new Account(isExpense, money, isNecessary,
+	Accounts = new Account(EIMode, money, isNecessary,
 		Note, balance, allCost, allIncome);
 
 }

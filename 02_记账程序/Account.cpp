@@ -43,7 +43,13 @@ double Account::getBalance() const
 //重载流运算符,将Account直接写入文件
 std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 {
-	std::string InAndOut = __w.EIMode == Expense ? "支出" : "收入";
+	std::string InAndOut;
+	if (__w.EIMode == Expense)
+		InAndOut = "支出";
+	else if (__w.EIMode == Income)
+		InAndOut = "收入";
+	else
+		InAndOut = "-";
 	std::string Necessary = __w.isNecessary ? "必需" : "非必需";
 	__ofs << InAndOut << '\t' << __w.money << '\t'
 		<< Necessary << __w.Note << '\t' << __w.balance

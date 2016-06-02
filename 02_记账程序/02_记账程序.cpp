@@ -170,7 +170,7 @@ int main()
 		<< "3. Create by money and money direction" << endl
 		<< "4. Flow of fund" << endl;
 	cout << "Enter operate mode: ";
-	int operMode = inputNumber(1, 4);
+	//int operMode = inputNumber(1, 4);
 
 
 	//响应操作模式
@@ -212,7 +212,7 @@ int main()
 	else if (operMode == 4)
 	{
 		//内部资金流通
-		ListAccBooks();			//列出账本
+		//ListAccBooks();			//列出账本
 		//内部资金流通至:
 		cout << "To: ";	
 		cin >> to;

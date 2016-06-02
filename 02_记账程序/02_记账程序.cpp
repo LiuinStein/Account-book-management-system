@@ -255,7 +255,7 @@ int main()
 			readToAccBook >> toLastLineStr;
 		Line toAccLastLine(toLastLineStr);
 		readToAccBook.close();
-
+		
 		//收款账本上一条账目信息
 		const Account * toPrevAcc = 
 			toAccLastLine.getAccount();
@@ -316,6 +316,11 @@ int main()
 		writeOperAccBook << tarWriteLine << endl;
 		writeToAccBook << tarWriteLine_to << endl;
 		//处理总账
+		auto 
+		writeAllAccBook << tarWriteLine << '\t'
+			<< AccountBooks[doNumber] << '\t'
+			<< AccountBooks[to] << endl;
+		
 		writeAllAccBook << new Time()
 			<< tarWriteLine.getDescription()
 			<< "-";

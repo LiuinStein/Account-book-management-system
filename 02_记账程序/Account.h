@@ -1,11 +1,16 @@
 #pragma once
 #include <string>
 
+enum EIMODE
+{
+	Expense, Income, Flow
+};
+
 //用于存储账本条目
 class Account
 {
 private:
-	bool		isExpense;		//支出为true,收入为false
+	EIMODE		EIMode;			//收入支出模式
 	double		money;			//流动金额
 	bool		isNecessary;	//必需为true
 	std::string Note;			//备注
@@ -13,7 +18,7 @@ private:
 	double		allCost;		//总花费
 	double		allIncome;		//总收入
 public:
-	explicit Account(bool __isE, double __mon, bool __isN,
+	explicit Account(EIMODE __EIM, double __mon, bool __isN,
 		std::string __note, double __bal,
 		double __allC, double __allI);
 
@@ -23,7 +28,7 @@ public:
 
 	//根据流动数额多少来生成新的Account条目
 	Account(const Account * __last, double __mon,
-		bool __isE, std::string __n = "无", bool __isN = true);
+		EIMODE __EIM, std::string __n = "无", bool __isN = true);
 
 	//得到余额
 	double getBalance()const;

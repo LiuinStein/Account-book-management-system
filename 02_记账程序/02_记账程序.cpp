@@ -11,36 +11,6 @@
 
 using namespace std;
 
-//录入区间数[__s,__e]
-int inputNumber(int __s, int __e)
-{
-	int result{};
-	do
-	{
-		cin >> result;
-		if (result < __s || result > __e)
-			cout << "Type error! You must type a number range of ["
-			<< __s << "," << __e << "]" << endl
-			<< "Type again: " << endl;
-	} while (result < __s || result > __e);
-	return result;
-}
-
-//列出账目清单
-void ListAccBooks()
-{
-	cout << "There are 10 Account books:" << endl;
-	cout << "1. 现金日记账.xls" << endl
-		<< "2. 贵金属投资.xls" << endl
-		<< "3. 京东金融投资.xls" << endl
-		<< "4. 余额宝.xls" << endl
-		<< "5. 建行尾号4852.xls" << endl
-		<< "6. 工行尾号9776.xls" << endl
-		<< "7. 工行尾号8261.xls" << endl
-		<< "8. 工行尾号6525.xls" << endl
-		<< "9. 校园卡日记账.xls" << endl;
-}
-
 //返回账目说明
 //1. 饭 2. 内部资金流通 3. 父母给 4. New description
 int getDescMethodNum()
@@ -171,7 +141,7 @@ int main()
 	//主程序界面
 	system("cls");
 	cout << "Welcome to lyst Account book management system" << endl;
-	ListAccBooks();
+	//ListAccBooks();
 
 	//录入操作账本序号
 	cout << "Enter operate account book number: ";
@@ -316,7 +286,7 @@ int main()
 		writeOperAccBook << tarWriteLine << endl;
 		writeToAccBook << tarWriteLine_to << endl;
 		//处理总账
-		auto 
+		//auto 
 		writeAllAccBook << tarWriteLine << '\t'
 			<< AccountBooks[doNumber] << '\t'
 			<< AccountBooks[to] << endl;

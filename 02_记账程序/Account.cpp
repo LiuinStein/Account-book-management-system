@@ -4,10 +4,10 @@
 #include <cmath>
 
 //构造函数
-Account::Account(bool __isE, double __mon, bool __isN,
+Account::Account(EIMODE __EIM, double __mon, bool __isN,
 	std::string __note, double __bal, double __allC,
 	double __allI) :
-	isExpense(__isE), money(__mon), isNecessary(__isN),
+	EIMode(__EIM), money(__mon), isNecessary(__isN),
 	Note(__note), balance(__bal), allCost(__allC),
 	allIncome(__allI) {}
 
@@ -15,20 +15,24 @@ Account::Account(bool __isE, double __mon, bool __isN,
 Account::Account(const Account* __last,
 	double __newBalance,
 	std::string __n, bool __isN) :
-	isExpense(__last->balance - __newBalance > 0),
+	EIMode(
+		__last->balance - __newBalance > 0 ?
+		Expense : Income
+	),
 	money(fabs(__last->balance - __newBalance)),
 	isNecessary(__isN), Note(__n),
 	balance(__newBalance),
-	allCost(isExpense ? __last->balance - __newBalance : 0),
-	allIncome(isExpense ? 0 : __newBalance - __last->balance) {}
+	allCost(EIMode == Expense ? __last->balance - __newBalance : 0),
+	allIncome(EIMode == Expense ? 0 : __newBalance - __last->balance) {}
 
 //根据流动数额多少来生成新的Account条目
 Account::Account(const Account* __last, double __mon,
-	bool __isE, std::string __n, bool __isN) :
-	isExpense(__isE), money(__mon),
+	EIMODE __EIM, std::string __n, bool __isN) :
+	EIMode(__EIM), money(__mon),
 	isNecessary(__isN), Note(__n),
-	balance(__isE ? __last->balance - __mon : __last->balance + __mon),
-	allCost(__isE ? __mon : 0), allIncome(__isE ? 0 : __mon){}
+	balance(EIMode == Expense ? __last->balance - __mon : __last->balance + __mon),
+	allCost(EIMode == Expense ? __mon : 0),
+	allIncome(EIMode == Expense ? 0 : __mon) {}
 
 //得到余额
 double Account::getBalance() const
@@ -37,9 +41,9 @@ double Account::getBalance() const
 }
 
 //重载流运算符,将Account直接写入文件
-	std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
+std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 {
-	std::string InAndOut = __w.isExpense ? "支出" : "收入";
+	std::string InAndOut = __w.EIMode == Expense ? "支出" : "收入";
 	std::string Necessary = __w.isNecessary ? "必需" : "非必需";
 	__ofs << InAndOut << '\t' << __w.money << '\t'
 		<< Necessary << __w.Note << '\t' << __w.balance

@@ -59,6 +59,12 @@ Line::Line(std::string & __inp):NowTime(new Time()),
 	Analyze();
 }
 
+//读出说明
+const std::string& Line::getDescription() const
+{
+	return Description;
+}
+
 //写入说明
 void Line::setDescription(const char * __s)
 {

@@ -201,11 +201,16 @@ int main()
 		<< "4. Flow of fund" << endl;
 	cout << "Enter operate mode: ";
 	int operMode = inputNumber(1, 4);
+
+
 	//响应操作模式
 	Line tarWriteLine;
-	Time NowTime;		//获取当前时间
-	//得到上一条账目信息
-	const Account * prevAcc = lastLine.getAccount();
+	Time NowTime;			//获取当前时间
+	int to{ -1 };			//用于内部资金流通情况下的收款方编号
+	Line tarWriteLine_to;	//用于内部资金流通情况下的收款账本
+	const Account * prevAcc =
+		lastLine.getAccount();//得到上一条账目信息
+
 	if (operMode == 1)
 	{
 		//手工录入:
@@ -237,25 +242,53 @@ int main()
 	else if (operMode == 4)
 	{
 		//内部资金流通
-		Line tarWriteLine_to;
-		ListAccBooks();		//列账本
-		cout << "From: ";
-		int from{};
-		cin >> from;
-		cout << "To: ";
-		int to{};
+		ListAccBooks();			//列出账本
+		//内部资金流通至:
+		cout << "To: ";	
 		cin >> to;
+
+		//读入收款账本
+		ifstream readToAccBook;
+		readToAccBook.open(AccountBooks[to]);
+		string toLastLineStr;
+		while (readToAccBook.good())
+			readToAccBook >> toLastLineStr;
+		Line toAccLastLine(toLastLineStr);
+		readToAccBook.close();
+
+		//收款账本上一条账目信息
+		const Account * toPrevAcc = 
+			toAccLastLine.getAccount();
+		
+		//流通数额
 		cout << "Money: ";
 		double money{};
 		cin >> money;
+
+		//使用现金流模式写入
 		if (useDefNoteTem())
 		{
-
+			//付款账本支出
+			tarWriteLine.setAccount(
+				new Account(prevAcc, money, true));
+			//收款账本收入
+			tarWriteLine_to.setAccount(
+				new Account(toPrevAcc, money, false));
 		}
 		else
 		{
-
+			string Note = inputNote();
+			bool isN = inputIsN();
+			//付款账本支出
+			tarWriteLine.setAccount(
+				new Account(prevAcc, money, true,
+					Note, isN));
+			//收款账本收入
+			tarWriteLine_to.setAccount(
+				new Account(toPrevAcc, money, false,
+					Note, isN));
 		}
+
 	}
 
 	//打开必要文件
@@ -271,7 +304,22 @@ int main()
 		writeOperAccBook << tarWriteLine << endl;
 		//写总账	
 		writeAllAccBook << tarWriteLine << '\t'
-			<< AccountBooks[doNumber] << "无" << endl;
+			<< AccountBooks[doNumber] << '\t'
+			<< "无" << endl;
+	}
+	else
+	{
+		//打开收款文件
+		ofstream writeToAccBook;
+		writeToAccBook.open(AccountBooks[to]);
+		//写入双方账本
+		writeOperAccBook << tarWriteLine << endl;
+		writeToAccBook << tarWriteLine_to << endl;
+		//处理总账
+		writeAllAccBook << new Time()
+			<< tarWriteLine.getDescription()
+			<< "-";
+
 	}
 
 

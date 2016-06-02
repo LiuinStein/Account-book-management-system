@@ -18,6 +18,9 @@ public:
 	Line();
 	explicit Line(std::string & __inp);
 
+	//读出说明
+	const std::string & getDescription()const;
+
 	//写入说明
 	void setDescription(const char * __s);
 

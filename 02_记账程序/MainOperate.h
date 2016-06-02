@@ -77,7 +77,13 @@ private:
 	bool inputIsN();
 
 	//通过余额写入Line
-	void createLineByBal(Line * __new, Line * __prev);
+	void createLineByBal(Line & __new, Line & __prev);
+
+	//录入收支情况
+	EIMODE ExpOrInc()const;
+
+	//通过资金流写入Line
+	void creaateLineByFlow(Line & __new, Line & __prev);
 
 	//写入所有更改账本文件
 	void writeBill();

@@ -130,8 +130,8 @@ bool MainOperate::inputIsN()
 }
 
 //通过余额来写入Line
-void MainOperate::createLineByBal(Line * __new, 
-	Line * __prev)
+void MainOperate::createLineByBal(Line & __new, 
+	Line & __prev)
 {
 	//输入新余额
 	std::cout << "Enter new balance: ";
@@ -145,16 +145,39 @@ void MainOperate::createLineByBal(Line * __new,
 	} while (newBalance < 0);
 	//写入Line
 	if (useDefNoteTem())
-		(*__new).setAccount(
-			new Account(__prev->getAccount(), newBalance));
+		__new.setAccount(
+			new Account(__prev.getAccount(), newBalance));
 	else
-		(*__new).setAccount(
-			new Account(__prev->getAccount(), newBalance,
+		__new.setAccount(
+			new Account(__prev.getAccount(), newBalance,
 				inputNote(), inputIsN()));
 
 }
 
+//录入收支情况
+EIMODE MainOperate::ExpOrInc() const
+{
+	std::cout << "Expense or Income(1 or 2): ";
+	return inputNumber(1, 2) == 1 ? Expense : Income;
+}
 
+//通过资金流写入Line
+void MainOperate::creaateLineByFlow(Line& __new, 
+	Line& __prev)
+{
+	EIMODE expOrInc = ExpOrInc();	//得到收支情况
+	double operMoney{};		
+	std::cin >> operMoney;	//得到操作现金数目
+
+	if (useDefNoteTem())	//是否会使用默认备注/必需模板
+		__new.setAccount(
+			new Account(__prev.getAccount(), operMoney,
+				expOrInc));
+	else
+		__new.setAccount(
+			new Account(__prev.getAccount(), operMoney,
+				expOrInc, inputNote(), inputIsN()));
+}
 
 //写入所有更改账本文件
 void MainOperate::writeBill()

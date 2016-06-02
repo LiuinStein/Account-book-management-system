@@ -73,6 +73,9 @@ void MainOperate::mappingOperMode()
 	else if(operModeNum == 2)
 	{
 		//根据余额(校园卡)
+		DescMethod(fromBillWriteLine);	//写入说明
+		createLineByBal(fromBillWriteLine,
+			fromBillLastLine);
 	}
 	//else if (operModeNum == 3)
 	//{
@@ -83,6 +86,7 @@ void MainOperate::mappingOperMode()
 	else if (operModeNum == 3)
 	{
 		//内部资金流通
+
 	}
 }
 

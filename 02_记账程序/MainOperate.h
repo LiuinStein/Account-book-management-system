@@ -9,21 +9,6 @@ class MainOperate
 {
 private:
 
-	//文件输入流
-	//std::ifstream readAllBill;		//总账输入流
-	//std::ifstream readOperBillFrom;	//来源账本输入流
-	//std::ifstream readOperBillTo;	//为内部资金流通准备的副账输入流
-
-	//文件输出流
-	//std::ofstream writeAllBill;		//总账输出流
-	//std::ofstream writeOperBillFrom;//来源账输出流
-	//std::ofstream writeOperBillTo;	//为内部资金流通准备的副账输出流
-
-	//读入的账目信息(字符串)
-	//std::string allBillLastStr;		//总账最后一条账目信息
-	//std::string fromBillLastStr;	//来源账最后一条账目信息
-	//std::string toBillLastStr;		//副账最后一条账目信息	
-
 	//读入行(Line)
 	AllAccountLine allBillLastLine;
 	Line fromBillLastLine;
@@ -34,38 +19,21 @@ private:
 	Line fromBillWriteLine;
 	Line toBillWriteLine;
 
-	//读入的账目信息(转化后的Account类)
-	//Account * prevLastAllBill;		//总账
-	//Account * prevLastBillFrom;		//来源账
-	//Account * prevLastBillTo;			//副账
-
 	//数据
 	int operBillFromNum;	//操作账本序号[1,9]
 	int operBillToNum;		//为内部资金流通准备的副账编号
-	int operModeNum;		//账本操作码[1,4]
+	int operModeNum;		//账本操作码[1,3]
+	std::string log;		//日志
 
+///数据服务函数:
 
+	///数据输入:
 	//录入区间数[__s,__e]
 	int inputNumber(int __s, int __e,
 		const char * InputError = nullptr)const;
 
-	//输出账目清单
-	void printAccBooks()const;
-
 	//输入操作账本编号
 	void inputOperBill(bool __isFrom);
-
-	//列出操作模式
-	void printOperMode()const;
-
-	//输入并映射账本操作模式
-	void mappingOperMode();
-
-	//载入总账文件
-	void loadAllBill();
-
-	//通过编号载入账本
-	void loadBillByNum(int __i, bool __isFrom);
 
 	//是否使用默认备注/必需模板
 	bool useDefNoteTem();
@@ -76,21 +44,49 @@ private:
 	//录入是否必需
 	bool inputIsN();
 
-	//通过余额写入Line
-	void createLineByBal(Line & __new, Line & __prev);
-
 	//录入收支情况
 	EIMODE ExpOrInc()const;
 
-	//返回账目说明
+
+	///数据输出
+	//输出账目清单
+	void printAccBooks()const;
+
+	//列出操作模式
+	void printOperMode()const;
+
+
+///文件操作函数
+	//载入总账文件
+	void loadAllBill();
+
+	//通过编号载入账本
+	void loadBillByNum(int __i, bool __isFrom);
+
+	//写入所有更改账本文件
+	void writeBill();
+
+///实际操作函数
+
+	//输入并映射账本操作模式
+	void mappingOperMode();
+
+	//通过余额写入Line
+	void createLineByBal(Line & __new, Line & __prev);
+
+	//写入账目说明
 	//1. 饭 2. 内部资金流通 3. 父母给 4. New description
 	void MainOperate::DescMethod(Line & __m);
 
 	//通过资金流写入Line
-	void createLineByFlow(Line & __new, Line & __prev);
+	double createLineByFlow(Line & __new, Line & __prev);
 
-	//写入所有更改账本文件
-	void writeBill();
+///其他函数
+	//确认操作
+	bool confirmOper()const;
+
+	//main函数Yeah!
+	void main();
 
 public:
 	MainOperate();

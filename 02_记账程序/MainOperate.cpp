@@ -111,11 +111,11 @@ void MainOperate::mappingOperMode()
 //载入总账文件
 void MainOperate::loadAllBill()
 {
-	std::ifstream readAllBill;//.open(AllAccount);
+	std::ifstream readAllBill;
 	readAllBill.open(AllAccount);
 	std::string tmp;
 	while (readAllBill.good())
-		readAllBill >> tmp;
+		std::getline(readAllBill, tmp);
 	allBillLastLine = tmp;
 	readAllBill.close();
 }

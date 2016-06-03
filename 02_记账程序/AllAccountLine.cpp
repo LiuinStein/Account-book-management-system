@@ -42,4 +42,5 @@ std::ifstream& operator>>(std::ifstream& __ifs,
 {
 	std::getline(__ifs, __w.LineContext);
 	__w.Analyze();
+	return __ifs;
 }

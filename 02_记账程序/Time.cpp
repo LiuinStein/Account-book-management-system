@@ -9,10 +9,10 @@
 //构造过程中产生当前时间
 Time::Time()
 {
-	time_t NowTimeLong = time(nullptr);
+	time_t NowTimeLong = time(NULL);
 	tm * NowTime = localtime(&NowTimeLong);
-	Year = NowTime->tm_year;
-	Mon = NowTime->tm_mon;
+	Year = NowTime->tm_year + 1900;
+	Mon = NowTime->tm_mon + 1;
 	Day = NowTime->tm_mday;
 	Hour = NowTime->tm_hour;
 	Min = NowTime->tm_min;

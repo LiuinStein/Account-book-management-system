@@ -52,7 +52,7 @@ std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 		InAndOut = "-";
 	std::string Necessary = __w.isNecessary ? "必需" : "非必需";
 	__ofs << InAndOut << '\t' << __w.money << '\t'
-		<< Necessary << __w.Note << '\t' << __w.balance
+		<< Necessary << '\t' << __w.Note << '\t' << __w.balance
 		<< '\t' << __w.allCost << '\t' << __w.allIncome;
 	return __ofs;
 }

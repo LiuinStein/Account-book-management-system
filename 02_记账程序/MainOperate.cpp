@@ -306,19 +306,19 @@ void MainOperate::writeBill()
 {
 	//写入总账
 	std::ofstream writeBill;
-	writeBill.open(AllAccount);
+	writeBill.open(AllAccount, std::ios::app);
 	writeBill << allBillWriteLine << std::endl;
 	writeBill.close();
 
 	//写入来源账本
-	writeBill.open(AccountBooks[operBillFromNum]);
+	writeBill.open(AccountBooks[operBillFromNum], std::ios::app);
 	writeBill << fromBillWriteLine << std::endl;
 	writeBill.close();
 
 	//写入副账账本(如果有的话)
 	if(operModeNum==4 && operBillToNum>0)
 	{
-		writeBill.open(AccountBooks[operBillToNum]);
+		writeBill.open(AccountBooks[operBillToNum], std::ios::app);
 		writeBill << toBillWriteLine << std::endl;
 		writeBill.close();
 	}

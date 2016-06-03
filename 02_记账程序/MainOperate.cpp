@@ -70,6 +70,7 @@ void MainOperate::mappingOperMode()
 		double mon =
 			createLineByFlow(fromBillWriteLine,
 				fromBillLastLine);
+		allBillWriteLine.setSheet(AccountBooks[operBillFromNum]);
 		std::stringstream wl;
 		wl << (mon > 0 ? "Income ￥" : "Expense ￥")
 			<< fabs(mon) << " in "
@@ -98,6 +99,8 @@ void MainOperate::mappingOperMode()
 				fromBillLastLine);
 		createLineByFlow(toBillWriteLine,
 			toBillLastLine);
+		allBillWriteLine.setSheet(AccountBooks[operBillFromNum],
+			AccountBooks[operBillToNum]);
 		//日志记录
 		std::stringstream wl;
 		wl << "Total of ￥" << fabs(flowMon)
@@ -191,9 +194,12 @@ void MainOperate::createLineByBal(Line & __new,
 		__new.setAccount(
 			new Account(__prev.getAccount(), newBalance,
 				inputNote(), inputIsN()));
+	allBillWriteLine =
+		*(new AllAccountLine(__new, 
+			AccountBooks[operBillFromNum]));
 	std::stringstream wl;
-	wl << "Refresh " + AccountBooks[operBillFromNum]
-		+ "'s balance. New balance is " << newBalance;
+	wl << "Refresh " << AccountBooks[operBillFromNum]
+		<< "'s balance. New balance is " << newBalance;
 	wl >> log;
 }
 
@@ -243,6 +249,9 @@ double MainOperate::createLineByFlow(Line& __new,
 		__new.setAccount(
 			new Account(__prev.getAccount(), operMoney,
 				expOrInc, inputNote(), inputIsN()));
+	allBillWriteLine = *(new AllAccountLine(
+		__new, "null"
+	));
 	return expOrInc == Expense ? 0.0 - operMoney :
 		operMoney;
 }

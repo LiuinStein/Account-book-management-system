@@ -58,6 +58,12 @@ Line::Line(std::string & __inp) : LineContext(__inp)
 	Analyze();
 }
 
+Line::Line(Line& __d) :
+	NowTime(new Time(*__d.NowTime)),
+	Description(__d.Description),
+	Accounts(new Account(*__d.Accounts)),
+	LineContext(__d.LineContext) {}
+
 //¶Á³öËµÃ÷
 const std::string& Line::getDescription() const
 {

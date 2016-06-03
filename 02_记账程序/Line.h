@@ -17,6 +17,7 @@ protected:
 public:
 	Line();
 	explicit Line(std::string & __inp);
+	Line(Line & __d);
 
 	//¶Á³öËµÃ÷
 	const std::string & getDescription()const;

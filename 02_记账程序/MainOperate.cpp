@@ -85,8 +85,17 @@ void MainOperate::mappingOperMode()
 	//}
 	else if (operModeNum == 3)
 	{
-		//内部资金流通
-
+		//TODO: 内部资金流通
+		//录入收款账本
+		std::cout << "Enter receipt account book: ";
+		inputOperBill(false);	
+		//写入双方账本Line对象(使用资金流创建)
+		fromBillWriteLine.setDescription("内部资金流通");
+		toBillWriteLine.setDescription("内部资金流通");
+		createLineByFlow(fromBillWriteLine,
+			fromBillLastLine);
+		createLineByFlow(toBillWriteLine,
+			toBillLastLine);
 	}
 }
 

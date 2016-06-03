@@ -19,7 +19,7 @@ int MainOperate::inputNumber(int __s, int __e,
 				<< "Type again: " << std::endl;
 			else
 				std::cout << *InputError << std::endl
-				<< "Type again: " << std::endl;
+				<< "Type again: ";
 	} while (result < __s || result > __e);
 	return result;
 

@@ -268,6 +268,7 @@ bool MainOperate::confirmOper() const
 	std::cout << log << std::endl;
 	std::cout << "Are you ABSOLUTELY sure?" << std::endl;
 	std::cout << "Type 1 to apply this changes,Type 0 to cancel" << std::endl;
+	std::cout << "Now, type your choose: ";
 	return inputNumber(0, 1) == 1;
 }
 
@@ -295,7 +296,7 @@ void MainOperate::main()
 	
 	//是否继续
 	std::cout << "Do you want to do something else?" << std::endl;
-	std::cout << "Type 1 to do sonething else, type 0 to exit" << std::endl;
+	std::cout << "Type 1 to do something else, type 0 to exit" << std::endl;
 	std::cout << "Type a option: ";
 	inputNumber(0, 1) == 1 ? main() : exit(0);
 

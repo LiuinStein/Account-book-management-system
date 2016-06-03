@@ -118,7 +118,7 @@ std::ifstream& operator>>(std::ifstream& __ifs, Line& __l)
 //重载流输入运算符,直接向文件写入行
 std::ofstream & operator<<(std::ofstream & __ofs, Line & __l)
 {
-	__ofs << *__l.NowTime << '\t' << __l.Description;
+	__ofs << *__l.NowTime << '\t' << __l.Description << '\t';
 	__ofs << *__l.Accounts;
 	return __ofs;
 }

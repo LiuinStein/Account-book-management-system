@@ -1,10 +1,10 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MainOperate.h"
 #include "FilePath.h"
 #include <iostream>
 #include <fstream>
 
-//´Ó½çÃæÂ¼ÈëÇø¼äÊı[__s,__e]
+//ä»ç•Œé¢å½•å…¥åŒºé—´æ•°[__s,__e]
 int MainOperate::inputNumber(int __s, int __e,
 	const char * InputError)const
 {
@@ -25,29 +25,29 @@ int MainOperate::inputNumber(int __s, int __e,
 
 }
 
-//ÁĞ³öÕËÄ¿Çåµ¥
+//åˆ—å‡ºè´¦ç›®æ¸…å•
 void MainOperate::printAccBooks() const
 {
 	std::cout << "There are 10 Account books:" << std::endl;
-	std::cout << "1. ÏÖ½ğÈÕ¼ÇÕË.xls" << std::endl
-		<< "2. ¹ó½ğÊôÍ¶×Ê.xls" << std::endl
-		<< "3. ¾©¶«½ğÈÚÍ¶×Ê.xls" << std::endl
-		<< "4. Óà¶î±¦.xls" << std::endl
-		<< "5. ½¨ĞĞÎ²ºÅ4852.xls" << std::endl
-		<< "6. ¹¤ĞĞÎ²ºÅ9776.xls" << std::endl
-		<< "7. ¹¤ĞĞÎ²ºÅ8261.xls" << std::endl
-		<< "8. ¹¤ĞĞÎ²ºÅ6525.xls" << std::endl
-		<< "9. Ğ£Ô°¿¨ÈÕ¼ÇÕË.xls" << std::endl;
+	std::cout << "1. ç°é‡‘æ—¥è®°è´¦.xls" << std::endl
+		<< "2. è´µé‡‘å±æŠ•èµ„.xls" << std::endl
+		<< "3. äº¬ä¸œé‡‘èæŠ•èµ„.xls" << std::endl
+		<< "4. ä½™é¢å®.xls" << std::endl
+		<< "5. å»ºè¡Œå°¾å·4852.xls" << std::endl
+		<< "6. å·¥è¡Œå°¾å·9776.xls" << std::endl
+		<< "7. å·¥è¡Œå°¾å·8261.xls" << std::endl
+		<< "8. å·¥è¡Œå°¾å·6525.xls" << std::endl
+		<< "9. æ ¡å›­å¡æ—¥è®°è´¦.xls" << std::endl;
 }
 
-//ÊäÈë²Ù×÷ÕË±¾±àºÅ
+//è¾“å…¥æ“ä½œè´¦æœ¬ç¼–å·
 void MainOperate::inputOperBill(bool __isFrom)
 {
 	__isFrom ? operBillFromNum = inputNumber(1, 9) :
 		operBillToNum = inputNumber(1, 9);
 }
 
-//ÁĞ³öÕË±¾²Ù×÷Âë
+//åˆ—å‡ºè´¦æœ¬æ“ä½œç 
 void MainOperate::printOperMode() const
 {
 	std::cout << "There are four operate mode:" << std::endl
@@ -56,51 +56,51 @@ void MainOperate::printOperMode() const
 		<< "3. Flow of fund" << std::endl;
 }
 
-//ÊäÈë²¢Ó³ÉäÕË±¾²Ù×÷Âë
+//è¾“å…¥å¹¶æ˜ å°„è´¦æœ¬æ“ä½œç 
 void MainOperate::mappingOperMode()
 {
 	std::cout << "Enter operate mode: ";
 	operModeNum = inputNumber(1, 3);
-	//ÍùÏÂÓ³ÉäÕË±¾²Ù×÷Ä£Ê½
+	//å¾€ä¸‹æ˜ å°„è´¦æœ¬æ“ä½œæ¨¡å¼
 	if (operModeNum == 1)
 	{
-		//×Ê½ğÁ÷(¸¸Ä¸¸ø,µ¥·½Ãæ×¢Èë/Êä³ö)
-		DescMethod(fromBillWriteLine);	//Ğ´ÈëËµÃ÷
-		//Ğ´Èë¼ÆËãÊı¾İ
+		//èµ„é‡‘æµ(çˆ¶æ¯ç»™,å•æ–¹é¢æ³¨å…¥/è¾“å‡º)
+		DescMethod(fromBillWriteLine);	//å†™å…¥è¯´æ˜
+		//å†™å…¥è®¡ç®—æ•°æ®
 		double mon =
 			createLineByFlow(fromBillWriteLine,
 				fromBillLastLine);
 		std::stringstream wl;
-		wl << (mon > 0 ? "Income £¤" : "Expense £¤")
+		wl << (mon > 0 ? "Income ï¿¥" : "Expense ï¿¥")
 			<< fabs(mon) << " in "
 			<< AccountBooks[operBillFromNum];
 		wl >> log;
 	}
 	else if(operModeNum == 2)
 	{
-		//¸ù¾İÓà¶î(Ğ£Ô°¿¨)
-		DescMethod(fromBillWriteLine);	//Ğ´ÈëËµÃ÷
+		//æ ¹æ®ä½™é¢(æ ¡å›­å¡)
+		DescMethod(fromBillWriteLine);	//å†™å…¥è¯´æ˜
 		createLineByBal(fromBillWriteLine,
 			fromBillLastLine);
 	}
 	else if (operModeNum == 3)
 	{
-		//ÄÚ²¿×Ê½ğÁ÷Í¨
-		//Â¼ÈëÊÕ¿îÕË±¾
+		//å†…éƒ¨èµ„é‡‘æµé€š
+		//å½•å…¥æ”¶æ¬¾è´¦æœ¬
 		std::cout << "Enter receipt account book: ";
 		inputOperBill(false);	
 		loadBillByNum(operBillToNum, false);
-		//Ğ´ÈëË«·½ÕË±¾Line¶ÔÏó(Ê¹ÓÃ×Ê½ğÁ÷´´½¨)
-		fromBillWriteLine.setDescription("ÄÚ²¿×Ê½ğÁ÷Í¨");
-		toBillWriteLine.setDescription("ÄÚ²¿×Ê½ğÁ÷Í¨");
+		//å†™å…¥åŒæ–¹è´¦æœ¬Lineå¯¹è±¡(ä½¿ç”¨èµ„é‡‘æµåˆ›å»º)
+		fromBillWriteLine.setDescription("å†…éƒ¨èµ„é‡‘æµé€š");
+		toBillWriteLine.setDescription("å†…éƒ¨èµ„é‡‘æµé€š");
 		double flowMon =
 			createLineByFlow(fromBillWriteLine,
 				fromBillLastLine);
 		createLineByFlow(toBillWriteLine,
 			toBillLastLine);
-		//ÈÕÖ¾¼ÇÂ¼
+		//æ—¥å¿—è®°å½•
 		std::stringstream wl;
-		wl << "Total of £¤" << fabs(flowMon)
+		wl << "Total of ï¿¥" << fabs(flowMon)
 			<< " is flowing from "
 			<< AccountBooks[operBillFromNum]
 			<< " to " << AccountBooks[operBillToNum];
@@ -108,7 +108,7 @@ void MainOperate::mappingOperMode()
 	}
 }
 
-//ÔØÈë×ÜÕËÎÄ¼ş
+//è½½å…¥æ€»è´¦æ–‡ä»¶
 void MainOperate::loadAllBill()
 {
 	std::ifstream readAllBill;//.open(AllAccount);
@@ -120,7 +120,7 @@ void MainOperate::loadAllBill()
 	readAllBill.close();
 }
 
-//Í¨¹ı±àºÅÔØÈëÕË±¾
+//é€šè¿‡ç¼–å·è½½å…¥è´¦æœ¬
 void MainOperate::loadBillByNum(int __i, bool __isFrom)
 {
 	Line * read = __isFrom ?
@@ -134,7 +134,7 @@ void MainOperate::loadBillByNum(int __i, bool __isFrom)
 	load.close();
 }
 
-//ÊÇ·ñÊ¹ÓÃÄ¬ÈÏ±¸×¢/±ØĞèÄ£°å
+//æ˜¯å¦ä½¿ç”¨é»˜è®¤å¤‡æ³¨/å¿…éœ€æ¨¡æ¿
 bool MainOperate::useDefNoteTem()
 {
 	std::cout << "Do you want to use the default note and necessary template?" << std::endl;
@@ -142,29 +142,29 @@ bool MainOperate::useDefNoteTem()
 	return inputNumber(1, 2) == 1;
 }
 
-//Â¼ÈëÕË±¾ËµÃ÷
+//å½•å…¥è´¦æœ¬è¯´æ˜
 std::string MainOperate::inputNote()
 {
 	std::cout << "Enter your DIY note or use default(type #1): ";
 	std::string tmp;
 	std::cin >> tmp;
 	if (tmp == "#1")
-		tmp = "ÎŞ";
+		tmp = "æ— ";
 	return tmp;
 }
 
-//Â¼ÈëÊÇ·ñ±ØĞè
+//å½•å…¥æ˜¯å¦å¿…éœ€
 bool MainOperate::inputIsN()
 {
 	std::cout << "Enter need(1) or unneed(2): ";
 	return inputNumber(1, 2) == 1;
 }
 
-//Í¨¹ıÓà¶îÀ´Ğ´ÈëLine
+//é€šè¿‡ä½™é¢æ¥å†™å…¥Line
 void MainOperate::createLineByBal(Line & __new, 
 	Line & __prev)
 {
-	//ÊäÈëĞÂÓà¶î
+	//è¾“å…¥æ–°ä½™é¢
 	std::cout << "Enter new balance: ";
 	double newBalance{};
 	do
@@ -174,7 +174,7 @@ void MainOperate::createLineByBal(Line & __new,
 			std::cout << "Balance requires > 0" << std::endl
 			<< "Type again: ";
 	} while (newBalance < 0);
-	//Ğ´ÈëLine
+	//å†™å…¥Line
 	if (useDefNoteTem())
 		__new.setAccount(
 			new Account(__prev.getAccount(), newBalance));
@@ -188,27 +188,27 @@ void MainOperate::createLineByBal(Line & __new,
 	wl >> log;
 }
 
-//Â¼ÈëÊÕÖ§Çé¿ö
+//å½•å…¥æ”¶æ”¯æƒ…å†µ
 EIMODE MainOperate::ExpOrInc() const
 {
 	std::cout << "Expense or Income(1 or 2): ";
 	return inputNumber(1, 2) == 1 ? Expense : Income;
 }
 
-//Â¼Èë²¢Ó³ÉäÕËÄ¿ËµÃ÷
-//1. ·¹ 2. ÄÚ²¿×Ê½ğÁ÷Í¨ 3. ¸¸Ä¸¸ø 4. New description
+//å½•å…¥å¹¶æ˜ å°„è´¦ç›®è¯´æ˜
+//1. é¥­ 2. å†…éƒ¨èµ„é‡‘æµé€š 3. çˆ¶æ¯ç»™ 4. New description
 void MainOperate::DescMethod(Line & __m)
 {
 	std::cout << "Choose a Income/Expense description in this option:" << std::endl;
-	std::cout << "Default option: 1. ·¹ 2. ÄÚ²¿×Ê½ğÁ÷Í¨ 3. ¸¸Ä¸¸ø 4. New description" << std::endl;
+	std::cout << "Default option: 1. é¥­ 2. å†…éƒ¨èµ„é‡‘æµé€š 3. çˆ¶æ¯ç»™ 4. New description" << std::endl;
 	std::cout << "Enter a option number: ";
 	int noteMode{ inputNumber(1, 4) };
 	if (noteMode == 1)
-		__m.setDescription("·¹");
+		__m.setDescription("é¥­");
 	else if (noteMode == 2)
-		__m.setDescription("ÄÚ²¿×Ê½ğÁ÷Í¨");
+		__m.setDescription("å†…éƒ¨èµ„é‡‘æµé€š");
 	else if (noteMode == 3)
-		__m.setDescription("¸¸Ä¸¸ø");
+		__m.setDescription("çˆ¶æ¯ç»™");
 	else if (noteMode == 4)
 	{
 		std::cout << "Enter a new description: ";
@@ -218,15 +218,15 @@ void MainOperate::DescMethod(Line & __m)
 	}
 }
 
-//Í¨¹ı×Ê½ğÁ÷Ğ´ÈëLine
+//é€šè¿‡èµ„é‡‘æµå†™å…¥Line
 double MainOperate::createLineByFlow(Line& __new, 
 	Line& __prev)
 {
-	EIMODE expOrInc = ExpOrInc();	//µÃµ½ÊÕÖ§Çé¿ö
+	EIMODE expOrInc = ExpOrInc();	//å¾—åˆ°æ”¶æ”¯æƒ…å†µ
 	double operMoney{};		
-	std::cin >> operMoney;	//µÃµ½²Ù×÷ÏÖ½ğÊıÄ¿
+	std::cin >> operMoney;	//å¾—åˆ°æ“ä½œç°é‡‘æ•°ç›®
 
-	if (useDefNoteTem())	//ÊÇ·ñ»áÊ¹ÓÃÄ¬ÈÏ±¸×¢/±ØĞèÄ£°å
+	if (useDefNoteTem())	//æ˜¯å¦ä¼šä½¿ç”¨é»˜è®¤å¤‡æ³¨/å¿…éœ€æ¨¡æ¿
 		__new.setAccount(
 			new Account(__prev.getAccount(), operMoney,
 				expOrInc));
@@ -238,7 +238,7 @@ double MainOperate::createLineByFlow(Line& __new,
 		operMoney;
 }
 
-//×îÖÕÏòÓÃ»§È·ÈÏ²Ù×÷ĞÅÏ¢
+//æœ€ç»ˆå‘ç”¨æˆ·ç¡®è®¤æ“ä½œä¿¡æ¯
 bool MainOperate::confirmOper() const
 {
 	std::cout << "!!!FINALLY INFORMATION CONFIRM!!!" << std::endl;
@@ -253,20 +253,20 @@ bool MainOperate::confirmOper() const
 	return inputNumber(0, 1) == 1;
 }
 
-//mainº¯ÊıYeah!
+//mainå‡½æ•°Yeah!
 void MainOperate::main()
 {
-	//ÁÁ³öÕË±¾
+	//äº®å‡ºè´¦æœ¬
 	printAccBooks();
 	std::cout << "Choose one to operate: ";
 
-	//¶ÁÈëÕË±¾
-	inputOperBill(true);	//ÊäÈë²Ù×÷ÕË±¾±àºÅ
-	loadBillByNum(operBillFromNum, true);	//¶ÁÈë²Ù×÷ÕË±¾
-	printOperMode();	//Êä³öÕË±¾²Ù×÷Ä£Ê½
-	mappingOperMode();	//ÊäÈë²¢Ó³ÉäÕË±¾²Ù×÷Ä£Ê½
+	//è¯»å…¥è´¦æœ¬
+	inputOperBill(true);	//è¾“å…¥æ“ä½œè´¦æœ¬ç¼–å·
+	loadBillByNum(operBillFromNum, true);	//è¯»å…¥æ“ä½œè´¦æœ¬
+	printOperMode();	//è¾“å‡ºè´¦æœ¬æ“ä½œæ¨¡å¼
+	mappingOperMode();	//è¾“å…¥å¹¶æ˜ å°„è´¦æœ¬æ“ä½œæ¨¡å¼
 
-	//È·ÈÏ²Ù×÷ĞÅÏ¢
+	//ç¡®è®¤æ“ä½œä¿¡æ¯
 	if (confirmOper())
 	{
 		writeBill();
@@ -275,7 +275,7 @@ void MainOperate::main()
 	else
 		std::cout << "Operation is abandoned!" << std::endl;
 	
-	//ÊÇ·ñ¼ÌĞø
+	//æ˜¯å¦ç»§ç»­
 	std::cout << "Do you want to do something else?" << std::endl;
 	std::cout << "Type 1 to do sonething else, type 0 to exit" << std::endl;
 	std::cout << "Type a option: ";
@@ -283,21 +283,21 @@ void MainOperate::main()
 
 }
 
-//Ğ´ÈëËùÓĞ¸ü¸ÄÕË±¾ÎÄ¼ş
+//å†™å…¥æ‰€æœ‰æ›´æ”¹è´¦æœ¬æ–‡ä»¶
 void MainOperate::writeBill()
 {
-	//Ğ´Èë×ÜÕË
+	//å†™å…¥æ€»è´¦
 	std::ofstream writeBill;
 	writeBill.open(AllAccount);
 	writeBill << allBillWriteLine << std::endl;
 	writeBill.close();
 
-	//Ğ´ÈëÀ´Ô´ÕË±¾
+	//å†™å…¥æ¥æºè´¦æœ¬
 	writeBill.open(AccountBooks[operBillFromNum]);
 	writeBill << fromBillWriteLine << std::endl;
 	writeBill.close();
 
-	//Ğ´Èë¸±ÕËÕË±¾(Èç¹ûÓĞµÄ»°)
+	//å†™å…¥å‰¯è´¦è´¦æœ¬(å¦‚æœæœ‰çš„è¯)
 	if(operModeNum==4 && operBillToNum>0)
 	{
 		writeBill.open(AccountBooks[operBillToNum]);
@@ -307,14 +307,14 @@ void MainOperate::writeBill()
 }
 
 
-//Ä¬ÈÏ¹¹Ôìº¯Êı
+//é»˜è®¤æ„é€ å‡½æ•°
 MainOperate::MainOperate()
 {
-	//»¶Ó­½çÃæ:
+	//æ¬¢è¿ç•Œé¢:
 	std::cout << "Welcome to lyst Account book management system" << std::endl;
 	std::cout << "Enter Password: ";
 
-	//ÃÜÂëÑéÖ¤²¿·Ö
+	//å¯†ç éªŒè¯éƒ¨åˆ†
 	std::string key;
 	bool keyCorrect;
 	do
@@ -328,13 +328,13 @@ MainOperate::MainOperate()
 		}
 	} while (!keyCorrect);
 
-	//Ö÷³ÌĞò½çÃæ
+	//ä¸»ç¨‹åºç•Œé¢
 	system("cls");
 	std::cout << "Welcome to lyst Account book management system" << std::endl;
 	
-	//³ÌĞò¿ªÊ¼±ØÏÈÔØÈë×ÜÕË
+	//ç¨‹åºå¼€å§‹å¿…å…ˆè½½å…¥æ€»è´¦
 	loadAllBill();	
-	//Ö÷º¯ÊıÔËĞĞ
+	//ä¸»å‡½æ•°è¿è¡Œ
 	main();
 }
 

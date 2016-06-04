@@ -28,7 +28,7 @@ int MainOperate::inputNumber(int __s, int __e,
 //列出账目清单
 void MainOperate::printAccBooks() const
 {
-	std::cout << "There are 10 Account books:" << std::endl;
+	std::cout << "There are 9 Account books:" << std::endl;
 	std::cout << "1. 现金日记账.xls" << std::endl
 		<< "2. 贵金属投资.xls" << std::endl
 		<< "3. 京东金融投资.xls" << std::endl
@@ -50,7 +50,7 @@ void MainOperate::inputOperBill(bool __isFrom)
 //列出账本操作码
 void MainOperate::printOperMode() const
 {
-	std::cout << "There are four operate mode:" << std::endl
+	std::cout << "There are three operate mode:" << std::endl
 		<< "1. Manual entry" << std::endl
 		<< "2. Create by balance" << std::endl
 		<< "3. Flow of fund" << std::endl;
@@ -200,7 +200,7 @@ void MainOperate::createLineByBal(Line & __new,
 	std::stringstream wl;
 	wl << "Refresh " << AccountBooks[operBillFromNum]
 		<< "'s balance. New balance is " << newBalance;
-	wl >> log;
+	log = wl.str();
 }
 
 //录入收支情况

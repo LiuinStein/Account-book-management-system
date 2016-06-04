@@ -84,7 +84,7 @@ void Line::setAccount(Account* __s)
 }
 
 //读取账目信息
-const Account* Line::getAccount() const
+Account* Line::getAccount() const
 {
 	return Accounts;
 }

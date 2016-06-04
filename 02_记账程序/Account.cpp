@@ -40,6 +40,12 @@ double Account::getBalance() const
 	return balance;
 }
 
+//设置余额
+void Account::setBalance(double __s)
+{
+	balance = __s;
+}
+
 //得到是否必需
 bool Account::getIsN() const
 {
@@ -56,6 +62,12 @@ double Account::getMon() const
 EIMODE Account::getEIMODE() const
 {
 	return EIMode;
+}
+
+//设置收支模式
+void Account::setEIM(EIMODE __s)
+{
+	EIMode = __s;
 }
 
 //得到说明

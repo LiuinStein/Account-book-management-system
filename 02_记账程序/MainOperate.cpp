@@ -93,21 +93,37 @@ void MainOperate::mappingOperMode()
 		loadBillByNum(operBillToNum, false);
 		//写入双方账本Line对象(使用资金流创建)
 		fromBillWriteLine.setDescription("内部资金流通");
-		toBillWriteLine.setDescription("内部资金流通");
-		double flowMon =
-			createLineByFlow(fromBillWriteLine,
-				fromBillLastLine);
-		createLineByFlow(toBillWriteLine,
-			toBillLastLine);
-		allBillWriteLine.setSheet(AccountBooks[operBillFromNum],
-			AccountBooks[operBillToNum]);
+		toBillWriteLine.setDescription("内部资金流通");	
+		
+		EIMODE expOrInc = ExpOrInc();	//得到收支情况
+		double operMoney{};
+		std::cout << "Enter the flow money: ";
+		std::cin >> operMoney;	//得到操作现金数目
+		flowSetLine(fromBillWriteLine, fromBillLastLine,
+			operMoney, expOrInc);
+		flowSetLine(toBillWriteLine, toBillLastLine,
+			operMoney, expOrInc == Expense ? Income : Expense);
+		
+		allBillWriteLine = AllAccountLine(
+			fromBillWriteLine, allBillLastLine, 
+			AccountBooks[operBillFromNum],
+			AccountBooks[operBillToNum]
+		);
+		Account * abwlAcc = allBillWriteLine.getAccount();
+		abwlAcc->setEIM(Flow);
+		abwlAcc->setBalance(
+			expOrInc == Expense ?
+			abwlAcc->getBalance() + operMoney :
+			abwlAcc->getBalance() - operMoney
+		);
+
 		//日志记录
 		std::stringstream wl;
-		wl << "Total of ￥" << fabs(flowMon)
+		wl << "Total of ￥" << operMoney
 			<< " is flowing from "
 			<< AccountBooks[operBillFromNum]
 			<< " to " << AccountBooks[operBillToNum];
-		wl >> log;
+		log = wl.str();
 	}
 }
 
@@ -244,21 +260,27 @@ double MainOperate::createLineByFlow(Line& __new,
 	std::cout << "Enter the flow money: ";
 	std::cin >> operMoney;	//得到操作现金数目
 
-	if (useDefNoteTem())	//是否会使用默认备注/必需模板
-		__new.setAccount(
-			new Account(__prev.getAccount(), operMoney,
-				expOrInc));
-	else
-		__new.setAccount(
-			new Account(__prev.getAccount(), operMoney,
-				expOrInc, inputNote(), inputIsN()));
-	
+	flowSetLine(__new, __prev, operMoney, expOrInc);
 	allBillWriteLine = AllAccountLine(
 		__new, allBillLastLine, "null"
 	);
 
 	return expOrInc == Expense ? 0.0 - operMoney :
 		operMoney;
+}
+
+//资金流写入Line
+void MainOperate::flowSetLine(Line& __new, Line& __prev,
+	double __mon, EIMODE __eim)
+{
+	if (useDefNoteTem())	//是否会使用默认备注/必需模板
+		__new.setAccount(
+			new Account(__prev.getAccount(), __mon,
+				__eim));
+	else
+		__new.setAccount(
+			new Account(__prev.getAccount(), __mon,
+				__eim, inputNote(), inputIsN()));
 }
 
 //最终向用户确认操作信息
@@ -325,7 +347,7 @@ void MainOperate::writeBill()
 	writeBill.close();
 
 	//写入副账账本(如果有的话)
-	if(operModeNum==4 && operBillToNum>0)
+	if(operModeNum==3 && operBillToNum>0)
 	{
 		writeBill.open(AccountBooks[operBillToNum], std::ios::app);
 		writeBill << toBillWriteLine << std::endl;

@@ -81,6 +81,10 @@ private:
 	//通过资金流写入Line
 	double createLineByFlow(Line & __new, Line & __prev);
 
+	//资金流写入Line
+	void flowSetLine(Line& __new, Line& __prev,
+		double __mon, EIMODE __eim);
+
 ///其他函数
 	//确认操作
 	bool confirmOper()const;

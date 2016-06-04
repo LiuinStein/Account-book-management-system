@@ -33,6 +33,9 @@ public:
 	//得到余额
 	double getBalance()const;
 
+	//设置余额
+	void setBalance(double __s);
+
 	//得到是否必需
 	bool getIsN()const;
 
@@ -41,6 +44,9 @@ public:
 
 	//得到收支模式
 	EIMODE getEIMODE()const;
+
+	//设置收支模式
+	void setEIM(EIMODE __s);
 
 	//得到说明
 	const std::string & getNote()const;

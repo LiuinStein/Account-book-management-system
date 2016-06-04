@@ -7,6 +7,7 @@
 //行信息分析
 void Line::Analyze()
 {
+	ss.clear();
 	ss << LineContext;		//录入流
 	//解析流
 	//解析时间

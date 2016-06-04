@@ -279,6 +279,9 @@ bool MainOperate::confirmOper() const
 //main函数Yeah!
 void MainOperate::main()
 {
+	//程序开始必先载入总账
+	loadAllBill();
+
 	//亮出账本
 	printAccBooks();
 	std::cout << "Choose one to operate: ";
@@ -354,9 +357,7 @@ MainOperate::MainOperate()
 	//主程序界面
 	system("cls");
 	std::cout << "Welcome to lyst Account book management system" << std::endl;
-	
-	//程序开始必先载入总账
-	loadAllBill();	
+		
 	//主函数运行
 	main();
 }

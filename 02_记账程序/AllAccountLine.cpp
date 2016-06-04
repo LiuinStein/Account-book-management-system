@@ -58,7 +58,7 @@ std::ofstream& operator<<(std::ofstream& __ofs,
 		__w.Description << '\t';
 	__ofs << *__w.Accounts << '\t' <<
 		__w.sheet_1 << '\t' <<
-		__w.sheet_2 << std::endl;
+		__w.sheet_2;
 	return __ofs;
 }
 

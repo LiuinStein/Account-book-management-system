@@ -18,7 +18,7 @@ public:
 		std::string __s1, std::string __s2 = "无");
 
 	//用Line创建AllAccountLine
-	AllAccountLine(Line & __d,
+	AllAccountLine(Line & __now, Line & __last,
 		std::string __s1, std::string __s2 = "无");
 
 	//为sheet赋值

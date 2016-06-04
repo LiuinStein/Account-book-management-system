@@ -194,9 +194,11 @@ void MainOperate::createLineByBal(Line & __new,
 		__new.setAccount(
 			new Account(__prev.getAccount(), newBalance,
 				inputNote(), inputIsN()));
+
 	allBillWriteLine =
-		*(new AllAccountLine(__new, 
-			AccountBooks[operBillFromNum]));
+		AllAccountLine(__new, allBillLastLine,
+			AccountBooks[operBillFromNum]);
+
 	std::stringstream wl;
 	wl << "Refresh " << AccountBooks[operBillFromNum]
 		<< "'s balance. New balance is " << newBalance;
@@ -249,9 +251,11 @@ double MainOperate::createLineByFlow(Line& __new,
 		__new.setAccount(
 			new Account(__prev.getAccount(), operMoney,
 				expOrInc, inputNote(), inputIsN()));
-	allBillWriteLine = *(new AllAccountLine(
-		__new, "null"
-	));
+	
+	allBillWriteLine = AllAccountLine(
+		__new, allBillLastLine, "null"
+	);
+
 	return expOrInc == Expense ? 0.0 - operMoney :
 		operMoney;
 }

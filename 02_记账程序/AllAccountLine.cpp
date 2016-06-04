@@ -17,10 +17,23 @@ AllAccountLine::AllAccountLine(std::string __inp,
 	std::string __s1, std::string __s2) :
 	Line(__inp), sheet_1(__s1), sheet_2(__s2) {}
 
+
 //用Line来创建AllAccountLine
-AllAccountLine::AllAccountLine(Line & __d, 
-	std::string __s1, std::string __s2):
-	Line(__d),sheet_1(__s1),sheet_2(__s2){}
+AllAccountLine::AllAccountLine(Line& __now,
+	Line& __last, std::string __s1,
+	std::string __s2) : 
+	Line(__now),
+	sheet_1(__s1), sheet_2(__s2)
+{
+	const Account * nowAcc = __now.getAccount();
+	const Account * lastAcc = __last.getAccount();
+	Accounts = new Account(lastAcc,
+		lastAcc->getBalance() - nowAcc->getMon(),
+		nowAcc->getNote(),
+		nowAcc->getIsN()
+	);
+}
+
 
 //为sheet赋值
 void AllAccountLine::setSheet(std::string __s1,

@@ -40,6 +40,24 @@ double Account::getBalance() const
 	return balance;
 }
 
+//得到是否必需
+bool Account::getIsN() const
+{
+	return isNecessary;
+}
+
+//得到流动金额
+double Account::getMon() const
+{
+	return money;
+}
+
+//得到说明
+const std::string& Account::getNote() const
+{
+	return Note;
+}
+
 //重载流运算符,将Account直接写入文件
 std::ofstream& operator<<(std::ofstream& __ofs, Account& __w)
 {

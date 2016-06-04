@@ -33,6 +33,15 @@ public:
 	//得到余额
 	double getBalance()const;
 
+	//得到是否必需
+	bool getIsN()const;
+
+	//得到流动金额
+	double getMon()const;
+
+	//得到说明
+	const std::string & getNote()const;
+
 	//重载流运算符,将Account直接写入文件
 	friend std::ofstream& operator<<(std::ofstream& __ofs, Account & __w);
 };

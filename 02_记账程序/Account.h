@@ -39,6 +39,9 @@ public:
 	//得到流动金额
 	double getMon()const;
 
+	//得到收支模式
+	EIMODE getEIMODE()const;
+
 	//得到说明
 	const std::string & getNote()const;
 

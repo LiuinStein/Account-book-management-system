@@ -16,7 +16,7 @@ int MainOperate::inputNumber(int __s, int __e,
 			if (InputError == nullptr)
 				std::cout << "Type error! You must type a number range of ["
 				<< __s << "," << __e << "]" << std::endl
-				<< "Type again: " << std::endl;
+				<< "Type again: ";
 			else
 				std::cout << *InputError << std::endl
 				<< "Type again: ";
@@ -75,7 +75,7 @@ void MainOperate::mappingOperMode()
 		wl << (mon > 0 ? "Income ￥" : "Expense ￥")
 			<< fabs(mon) << " in "
 			<< AccountBooks[operBillFromNum];
-		wl >> log;
+		log = wl.str();
 	}
 	else if(operModeNum == 2)
 	{
@@ -241,6 +241,7 @@ double MainOperate::createLineByFlow(Line& __new,
 {
 	EIMODE expOrInc = ExpOrInc();	//得到收支情况
 	double operMoney{};		
+	std::cout << "Enter the flow money: ";
 	std::cin >> operMoney;	//得到操作现金数目
 
 	if (useDefNoteTem())	//是否会使用默认备注/必需模板

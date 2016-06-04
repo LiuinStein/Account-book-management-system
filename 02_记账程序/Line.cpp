@@ -59,7 +59,7 @@ Line::Line(std::string & __inp) : LineContext(__inp)
 	Analyze();
 }
 
-Line::Line(Line& __d) :
+Line::Line(const Line& __d) :
 	NowTime(new Time(*__d.NowTime)),
 	Description(__d.Description),
 	Accounts(new Account(*__d.Accounts)),

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "AllAccountLine.h"
 #include <fstream>
 
@@ -8,7 +8,7 @@ void AllAccountLine::Analyze()
 	ss >> sheet_1 >> sheet_2;
 }
 
-//Ä¬ÈÏ¹¹Ôìº¯Êı
+//é»˜è®¤æ„é€ å‡½æ•°
 AllAccountLine::AllAccountLine() :Line()
 {
 }
@@ -18,8 +18,8 @@ AllAccountLine::AllAccountLine(std::string __inp,
 	Line(__inp), sheet_1(__s1), sheet_2(__s2) {}
 
 
-//ÓÃLineÀ´´´½¨AllAccountLine
-AllAccountLine::AllAccountLine(Line& __now,
+//ç”¨Lineæ¥åˆ›å»ºAllAccountLine
+AllAccountLine::AllAccountLine(const Line& __now,
 	Line& __last, std::string __s1,
 	std::string __s2) : 
 	Line(__now),
@@ -27,15 +27,14 @@ AllAccountLine::AllAccountLine(Line& __now,
 {
 	const Account * nowAcc = __now.getAccount();
 	const Account * lastAcc = __last.getAccount();
-	Accounts = new Account(lastAcc,
-		lastAcc->getBalance() - nowAcc->getMon(),
-		nowAcc->getNote(),
-		nowAcc->getIsN()
-	);
+	double mon = nowAcc->getMon();
+	EIMODE eim = nowAcc->getEIMODE();
+	Accounts = new Account(lastAcc, mon, eim,
+		nowAcc->getNote(), nowAcc->getIsN());
 }
 
 
-//Îªsheet¸³Öµ
+//ä¸ºsheetèµ‹å€¼
 void AllAccountLine::setSheet(std::string __s1,
 	std::string __s2)
 {
@@ -43,14 +42,14 @@ void AllAccountLine::setSheet(std::string __s1,
 	sheet_2 = __s2;
 }
 
-//ÖØÔØ¸³ÖµÔËËã·û,Ö±½Ó´ÓstringÖĞ¶ÁÈ¡ĞĞ
+//é‡è½½èµ‹å€¼è¿ç®—ç¬¦,ç›´æ¥ä»stringä¸­è¯»å–è¡Œ
 void AllAccountLine::operator=(std::string& __str)
 {
 	LineContext = __str;
 	Analyze();
 }
 
-//ÖØÔØÁ÷ÔËËã·û,Ö±½ÓÏòÎÄ¼şĞ´Èë
+//é‡è½½æµè¿ç®—ç¬¦,ç›´æ¥å‘æ–‡ä»¶å†™å…¥
 std::ofstream& operator<<(std::ofstream& __ofs, 
 	AllAccountLine& __w)
 {
@@ -61,7 +60,7 @@ std::ofstream& operator<<(std::ofstream& __ofs,
 	return __ofs;
 }
 
-//ÖØÔØÁ÷ÔËËã·û,Ö±½Ó´ÓÎÄ¼ş¶ÁÈë
+//é‡è½½æµè¿ç®—ç¬¦,ç›´æ¥ä»æ–‡ä»¶è¯»å…¥
 std::ifstream& operator>>(std::ifstream& __ifs,
 	AllAccountLine& __w)
 {

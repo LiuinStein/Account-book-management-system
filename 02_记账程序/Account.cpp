@@ -52,6 +52,12 @@ double Account::getMon() const
 	return money;
 }
 
+//得到收支模式
+EIMODE Account::getEIMODE() const
+{
+	return EIMode;
+}
+
 //得到说明
 const std::string& Account::getNote() const
 {

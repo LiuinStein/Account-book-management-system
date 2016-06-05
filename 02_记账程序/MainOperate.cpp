@@ -133,14 +133,14 @@ void MainOperate::loadAllBill()
 	std::ifstream readAllBill;
 	readAllBill.open(AllAccount);
 	std::string tmp;
-	std::string ltmp;
 	while (readAllBill.good())
 	{
-		ltmp = tmp;
 		std::getline(readAllBill, tmp);
-	}
-		
-	allBillLastLine = ltmp;
+		readAllBill.get();
+		if (readAllBill.peek() == '\n')
+			break;
+	}		
+	allBillLastLine = tmp;
 	readAllBill.close();
 }
 
@@ -152,13 +152,14 @@ void MainOperate::loadBillByNum(int __i, bool __isFrom)
 	std::ifstream load;
 	load.open(AccountBooks[__i]);
 	std::string tmp;
-	std::string ltmp;
 	while (load.good())
 	{
-		ltmp = tmp;
 		std::getline(load, tmp);
+		load.get();
+		if (load.peek() == '\n')
+			break;
 	}		
-	*read = ltmp;
+	*read = tmp;
 	load.close();
 }
 
